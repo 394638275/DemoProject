@@ -13,7 +13,7 @@ import java.util.Map;
 import com.lew.mapleleaf.beans.ChannelItem;
 import com.lew.mapleleaf.db.SQLHelper;
 
-public class ChannelDao implements ChannelDaoInface {
+public class ChannelDao implements ChannelDaoInterface {
     private SQLHelper helper = null;
 
     public ChannelDao(Context context) {
@@ -33,7 +33,7 @@ public class ChannelDao implements ChannelDaoInface {
             values.put("orderId", item.getOrderId());
             values.put("selected", item.getSelected());
             id = database.insert(SQLHelper.TABLE_CHANNEL, null, values);
-            flag = (id != -1 ? true : false);
+            flag = (id != -1);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -52,7 +52,7 @@ public class ChannelDao implements ChannelDaoInface {
         try {
             database = helper.getWritableDatabase();
             count = database.delete(SQLHelper.TABLE_CHANNEL, whereClause, whereArgs);
-            flag = (count > 0 ? true : false);
+            flag = (count > 0);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -71,7 +71,7 @@ public class ChannelDao implements ChannelDaoInface {
         try {
             database = helper.getWritableDatabase();
             count = database.update(SQLHelper.TABLE_CHANNEL, values, whereClause, whereArgs);
-            flag = (count > 0 ? true : false);
+            flag = (count > 0);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -86,11 +86,10 @@ public class ChannelDao implements ChannelDaoInface {
     public Map<String, String> viewCache(String selection, String[] selectionArgs) {
         SQLiteDatabase database = null;
         Cursor cursor = null;
-        Map<String, String> map = new HashMap<String, String>();
+        Map<String, String> map = new HashMap<>();
         try {
             database = helper.getReadableDatabase();
-            cursor = database.query(true, SQLHelper.TABLE_CHANNEL, null, selection, selectionArgs, null, null, null,
-                    null);
+            cursor = database.query(true, SQLHelper.TABLE_CHANNEL, null, selection, selectionArgs, null, null, null, null);
             int cols_len = cursor.getColumnCount();
             while (cursor.moveToNext()) {
                 for (int i = 0; i < cols_len; i++) {
@@ -105,6 +104,9 @@ public class ChannelDao implements ChannelDaoInface {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
+            if (cursor != null){
+                cursor.close();
+            }
             if (database != null) {
                 database.close();
             }
@@ -114,16 +116,15 @@ public class ChannelDao implements ChannelDaoInface {
 
     @Override
     public List<Map<String, String>> listCache(String selection, String[] selectionArgs) {
-        List<Map<String, String>> list = new ArrayList<Map<String, String>>();
+        List<Map<String, String>> list = new ArrayList<>();
         SQLiteDatabase database = null;
         Cursor cursor = null;
         try {
             database = helper.getReadableDatabase();
-            cursor = database.query(false, SQLHelper.TABLE_CHANNEL, null, selection, selectionArgs, null, null, null,
-                    null);
+            cursor = database.query(false, SQLHelper.TABLE_CHANNEL, null, selection, selectionArgs, null, null, null, null);
             int cols_len = cursor.getColumnCount();
             while (cursor.moveToNext()) {
-                Map<String, String> map = new HashMap<String, String>();
+                Map<String, String> map = new HashMap<>();
                 for (int i = 0; i < cols_len; i++) {
                     String cols_name = cursor.getColumnName(i);
                     String cols_values = cursor.getString(cursor.getColumnIndex(cols_name));
@@ -138,6 +139,9 @@ public class ChannelDao implements ChannelDaoInface {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
+            if (cursor != null){
+                cursor.close();
+            }
             if (database != null) {
                 database.close();
             }

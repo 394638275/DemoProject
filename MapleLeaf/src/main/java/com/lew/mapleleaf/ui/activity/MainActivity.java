@@ -8,7 +8,7 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
 import com.lew.mapleleaf.R;
-import com.lew.mapleleaf.ui.base.BaseActivity;
+import com.lew.mapleleaf.ui.BaseActivity;
 import com.lew.mapleleaf.ui.fragments.MainPageFragment;
 
 public class MainActivity extends BaseActivity {

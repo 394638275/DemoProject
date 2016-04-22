@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Handler;
 
 import com.lew.mapleleaf.R;
-import com.lew.mapleleaf.ui.base.BaseActivity;
+import com.lew.mapleleaf.ui.BaseActivity;
 import com.lew.mapleleaf.utils.app.AppIntroUtil;
 import com.lew.mapleleaf.utils.logger.Logger;
 

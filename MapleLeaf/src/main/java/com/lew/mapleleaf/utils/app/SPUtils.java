@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.lew.mapleleaf.ui.base.MapleLeafApplication;
+import com.lew.mapleleaf.ui.MapleLeafApplication;
 
 public class SPUtils implements OnSharedPreferenceChangeListener {
 

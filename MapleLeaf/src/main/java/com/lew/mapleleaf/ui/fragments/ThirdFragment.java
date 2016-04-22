@@ -3,7 +3,7 @@ package com.lew.mapleleaf.ui.fragments;
 import android.view.View;
 
 import com.lew.mapleleaf.R;
-import com.lew.mapleleaf.ui.base.BaseFragment;
+import com.lew.mapleleaf.ui.BaseFragment;
 import com.lew.mapleleaf.ui.widgets.progresslayout.ProgressLayout;
 public class ThirdFragment extends BaseFragment implements View.OnClickListener{
 

@@ -8,9 +8,9 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -20,8 +20,8 @@ import com.lew.mapleleaf.R;
 import com.lew.mapleleaf.beans.ChannelItem;
 import com.lew.mapleleaf.beans.ChannelManage;
 import com.lew.mapleleaf.db.SQLHelper;
-import com.lew.mapleleaf.ui.base.BaseFragment;
-import com.lew.mapleleaf.ui.base.MapleLeafApplication;
+import com.lew.mapleleaf.ui.BaseFragment;
+import com.lew.mapleleaf.ui.MapleLeafApplication;
 import com.lew.mapleleaf.ui.widgets.views.ViewPagerIndicator;
 import com.lew.mapleleaf.utils.common.ScreenUtils;
 
@@ -37,7 +37,7 @@ public class MainPageFragment extends BaseFragment {
     public View mShadowLeft;   //左阴影部分
     public View mShadowRight;  //右阴影部分
     private ImageButton mMoreColums;
-    private RelativeLayout mColum;
+    private FrameLayout mColum;
     private int mScreenWidth = 0;   //屏幕宽度
     private int mItemWidth = 0;     //Item宽度
 
@@ -70,7 +70,7 @@ public class MainPageFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-//        initColumnData();
+        initColumnData();
         initTabColumn();
         initFragment();
     }

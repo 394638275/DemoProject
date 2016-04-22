@@ -38,5 +38,4 @@ public class SQLHelper extends SQLiteOpenHelper {
 		// 更改数据库版本的操作
 		onCreate(db);
 	}
-
 }

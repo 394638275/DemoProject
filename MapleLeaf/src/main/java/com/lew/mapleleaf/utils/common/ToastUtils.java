@@ -10,7 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lew.mapleleaf.R;
-import com.lew.mapleleaf.ui.base.MapleLeafApplication;
+import com.lew.mapleleaf.ui.MapleLeafApplication;
 
 
 public class ToastUtils {

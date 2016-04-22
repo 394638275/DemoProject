@@ -7,7 +7,7 @@ import java.util.Map;
 
 import com.lew.mapleleaf.beans.ChannelItem;
 
-public interface ChannelDaoInface {
+public interface ChannelDaoInterface {
     boolean addCache(ChannelItem item);
 
     boolean deleteCache(String whereClause, String[] whereArgs);

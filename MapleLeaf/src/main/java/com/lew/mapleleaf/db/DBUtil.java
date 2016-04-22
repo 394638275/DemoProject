@@ -45,10 +45,6 @@ public class DBUtil {
 
     /**
      * 更新数据
-     *
-     * @param values
-     * @param whereClause
-     * @param whereArgs
      */
     public void updateData(ContentValues values, String whereClause, String[] whereArgs) {
         mSQLiteDatabase.update(SQLHelper.TABLE_CHANNEL, values, whereClause, whereArgs);
@@ -56,9 +52,6 @@ public class DBUtil {
 
     /**
      * 删除数据
-     *
-     * @param whereClause
-     * @param whereArgs
      */
     public void deleteData(String whereClause, String[] whereArgs) {
         mSQLiteDatabase.delete(SQLHelper.TABLE_CHANNEL, whereClause, whereArgs);
@@ -66,14 +59,6 @@ public class DBUtil {
 
     /**
      * 查询数据
-     *
-     * @param columns
-     * @param selection
-     * @param selectionArgs
-     * @param groupBy
-     * @param having
-     * @param orderBy
-     * @return
      */
     public Cursor selectData(String[] columns, String selection, String[] selectionArgs, String groupBy, String having, String orderBy) {
         Cursor cursor = mSQLiteDatabase.query(SQLHelper.TABLE_CHANNEL, columns, selection, selectionArgs, groupBy, having, orderBy);

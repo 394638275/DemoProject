@@ -3,7 +3,7 @@ package com.lew.mapleleaf.ui.fragments;
 import android.widget.GridView;
 
 import com.lew.mapleleaf.R;
-import com.lew.mapleleaf.ui.base.BaseFragment;
+import com.lew.mapleleaf.ui.BaseFragment;
 import com.lew.mapleleaf.utils.logger.Logger;
 
 import java.util.ArrayList;

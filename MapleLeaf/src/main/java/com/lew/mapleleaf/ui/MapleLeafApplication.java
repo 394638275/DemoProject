@@ -1,4 +1,4 @@
-package com.lew.mapleleaf.ui.base;
+package com.lew.mapleleaf.ui;
 
 import android.app.Application;
 

@@ -1,7 +1,7 @@
 package com.lew.mapleleaf.ui.fragments;
 
 import com.lew.mapleleaf.R;
-import com.lew.mapleleaf.ui.base.BaseFragment;
+import com.lew.mapleleaf.ui.BaseFragment;
 import com.lew.mapleleaf.ui.widgets.progresslayout.ProgressView;
 import com.lew.mapleleaf.ui.widgets.progresslayout.ProgressListener;
 import com.lew.mapleleaf.utils.logger.Logger;
@@ -41,5 +41,11 @@ public class SecondFragment extends BaseFragment {
     @Override
     protected void initData() {
         Logger.d("initData");
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        progressView.cancel();
     }
 }

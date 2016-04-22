@@ -175,7 +175,7 @@ public class ProgressView extends View implements Animatable {
                     postInvalidate();
                     currentProgress += 1;
                     if (progressListener != null) {
-                        progressListener.onProgressChanged(currentProgress / 10);
+                        progressListener.onProgressChanged(currentProgress);
                     }
                     handlerProgress.postDelayed(mRunnableProgress, PROGRESS_SECOND_MS / 10);
                 }
