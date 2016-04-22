@@ -1,0 +1,305 @@
+package com.lew.mapleleaf.utils.app;
+
+import android.content.Context;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.Environment;
+import android.os.StatFs;
+import android.telephony.TelephonyManager;
+import android.text.TextUtils;
+import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.Method;
+import java.util.Locale;
+
+/**
+ *
+ */
+public class MiscUtils {
+    private final static String TAG = MiscUtils.class.getSimpleName();
+    public static final String APP_FOLDER_ON_SD = Environment.getExternalStorageDirectory().getAbsolutePath() + "/TianXiang/TianXiang";
+
+    public static boolean checkFsWritable() {
+        File directory = new File(APP_FOLDER_ON_SD);
+        if (!directory.isDirectory()) {
+            if (!directory.mkdirs()) {
+                return false;
+            }
+        }
+        File f = new File(APP_FOLDER_ON_SD, ".probe");
+        try {
+            // Remove stale file if any
+            if (f.exists()) {
+                f.delete();
+            }
+            if (!f.createNewFile()) {
+                return false;
+            }
+            f.delete();
+            return true;
+        } catch (IOException ex) {
+            return false;
+        }
+    }
+
+
+    public static boolean hasStorage() {
+        boolean hasStorage = false;
+        String str = Environment.getExternalStorageState();
+
+        if (str.equalsIgnoreCase(Environment.MEDIA_MOUNTED)) {
+            hasStorage = checkFsWritable();
+        }
+        return hasStorage;
+    }
+
+
+    /**
+     *
+     * @param dir  目标文件
+     * @param fileName  文件名
+     */
+    public static void updateFileTime(String dir, String fileName) {
+        File file = new File(dir, fileName);
+        long newModifiedTime = System.currentTimeMillis();
+        file.setLastModified(newModifiedTime);
+    }
+
+
+    /**
+     *
+     * @param context  上下文
+     * @return  是否有网络
+     */
+    public static boolean checkNet(Context context) {
+        ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo info = manager.getActiveNetworkInfo();
+        return info != null;
+    }
+
+
+    /**
+     *
+     * @param context  上下文
+     * @return  apn
+     */
+    public static String getAPN(Context context) {
+
+        String apn = "";
+        ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo info = manager.getActiveNetworkInfo();
+        if (info != null) {
+            if (ConnectivityManager.TYPE_WIFI == info.getType()) {
+                apn = info.getTypeName();
+                if (apn == null) {
+                    apn = "wifi";
+                }
+            }
+            else {
+                apn = info.getExtraInfo().toLowerCase();
+            }
+        }
+        return apn;
+    }
+
+
+    /**
+     *
+     * @param context  上下文
+     * @return  model
+     */
+    public static String getModel(Context context) {
+        return Build.MODEL;
+    }
+
+    /**
+     *
+     * @param context  context
+     * @return  MANUFACTURER
+     */
+    public static String getManufacturer(Context context) {
+        return Build.MANUFACTURER;
+    }
+
+
+    /**
+     *
+     * @param context  context
+     * @return  RELEASE
+     */
+    public static String getFirmware(Context context) {
+        return Build.VERSION.RELEASE;
+    }
+
+
+    /**
+     *
+     * @return  sdkversion
+     */
+    public static String getSDKVer() {
+        return Integer.valueOf(Build.VERSION.SDK_INT).toString();
+    }
+
+
+    /**
+     *
+     * @return  获取语言
+     */
+    public static String getLanguage() {
+        Locale locale = Locale.getDefault();
+        String languageCode = locale.getLanguage();
+        if (TextUtils.isEmpty(languageCode)) {
+            languageCode = "";
+        }
+        return languageCode;
+    }
+
+
+    /**
+     *
+     * @return  获取国家
+     */
+    public static String getCountry() {
+        Locale locale = Locale.getDefault();
+        String countryCode = locale.getCountry();
+        if (TextUtils.isEmpty(countryCode)) {
+            countryCode = "";
+        }
+        return countryCode;
+    }
+
+
+    /**
+     *
+     * @param context   context
+     * @return  imei
+     */
+    public static String getIMEI(Context context) {
+        TelephonyManager mTelephonyMgr = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        String imei = mTelephonyMgr.getDeviceId();
+        if (TextUtils.isEmpty(imei) || imei.equals("000000000000000")) {
+            imei = "0";
+        }
+        return imei;
+    }
+
+
+    /**
+     *
+     * @param context  context
+     * @return  imsi
+     */
+    public static String getIMSI(Context context) {
+        TelephonyManager mTelephonyMgr = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        String imsi = mTelephonyMgr.getSubscriberId();
+        if (TextUtils.isEmpty(imsi)) {
+            return "0";
+        }
+        else {
+            return imsi;
+        }
+    }
+
+    /**
+     *
+     * @param context  context
+     * @return  mcnc
+     */
+    public static String getMcnc(Context context) {
+        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        String mcnc = tm.getNetworkOperator();
+        if (TextUtils.isEmpty(mcnc)) {
+            return "0";
+        }
+        else {
+            return mcnc;
+        }
+    }
+
+    /**
+     *
+     * @param context  context
+     * @param keyName  keyName
+     * @return  data
+     */
+    public static Object getMetaData(Context context, String keyName) {
+        try {
+            ApplicationInfo info = context.getPackageManager().getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA);
+            Bundle bundle = info.metaData;
+            return bundle.get(keyName);
+        } catch (NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+
+    /**
+     *
+     * @param context context
+     * @return  AppVersion
+     */
+    public static String getAppVersion(Context context) {
+        PackageManager pm = context.getPackageManager();
+        PackageInfo pi;
+        try {
+            pi = pm.getPackageInfo(context.getPackageName(), 0);
+            return pi.versionName;
+        } catch (NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+
+    /**
+     *
+     * @param context  context
+     * @return  SerialNumber
+     */
+    public static String getSerialNumber(Context context) {
+        String serial = null;
+        try {
+            Class<?> c = Class.forName("android.os.SystemProperties");
+            Method get = c.getMethod("get", String.class);
+            serial = (String) get.invoke(c, "ro.serialno");
+            if (serial == null || serial.trim().length() <= 0) {
+                TelephonyManager tManager= (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+                serial = tManager.getDeviceId();
+            }
+        } catch (Exception ignored) {
+            ignored.printStackTrace();
+        }
+        return serial;
+    }
+
+
+    /**
+     * SDCard
+     * @return    SDCard
+     */
+    public boolean isSDCardSizeOverflow() {
+        boolean result = false;
+        String sDcString = Environment.getExternalStorageState();
+        if (sDcString.equals(Environment.MEDIA_MOUNTED)) {
+            File pathFile = Environment.getExternalStorageDirectory();
+            StatFs statfs = new StatFs(pathFile.getPath());
+            long nTotalBlocks = statfs.getBlockCount();
+            long nBlocSize = statfs.getBlockSize();
+            long nAvailaBlock = statfs.getAvailableBlocks();
+            long nFreeBlock = statfs.getFreeBlocks();
+            long nSDTotalSize = nTotalBlocks * nBlocSize / 1024 / 1024;
+            long nSDFreeSize = nAvailaBlock * nBlocSize / 1024 / 1024;
+            if (nSDFreeSize <= 1) {
+                result = true;
+            }
+        }
+        return result;
+    }
+}

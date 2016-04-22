@@ -1,0 +1,73 @@
+<resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    
+    <!-- text size -->
+    <dimen name="text_size_10">10sp</dimen>
+    <dimen name="text_size_11">11sp</dimen>
+    <dimen name="text_size_12">12sp</dimen>
+    <dimen name="text_size_13">13sp</dimen>
+    <dimen name="text_size_14">14sp</dimen>
+    <dimen name="text_size_15">15sp</dimen>
+    <dimen name="text_size_16">16sp</dimen>
+    <dimen name="text_size_17">17sp</dimen>
+    <dimen name="text_size_18">18sp</dimen>
+    <dimen name="text_size_19">19sp</dimen>
+    <dimen name="text_size_20">20sp</dimen>
+    
+    <!-- layout size -->
+    <dimen name="title_height">45dp</dimen>
+    <dimen name="list_item_height_40">40dp</dimen>
+    <dimen name="list_item_height_80">80dp</dimen>
+    <dimen name="form_item_height">50dp</dimen>
+    <dimen name="public_padding_10">10dp</dimen>
+    
+    <dimen name="public_divider_line_size">0.5dp</dimen>
+
+
+    <!--material dip-->
+    <dimen name="material_1dp">1dip</dimen>
+    <dimen name="material_2dp">2dip</dimen>
+    <dimen name="material_3dp">3dip</dimen>
+    <dimen name="material_4dp">4dip</dimen>
+    <dimen name="material_6dp">6dip</dimen>
+    <dimen name="material_8dp">8dip</dimen>
+    <dimen name="material_16dp">16dip</dimen>
+    <dimen name="material_24dp">24dip</dimen>
+    <dimen name="material_32dp">32dip</dimen>
+    <dimen name="material_40dp">40dip</dimen>
+    <dimen name="material_48dp">48dip</dimen>
+    <dimen name="material_56dp">56dip</dimen>
+    <dimen name="material_64dp">64dip</dimen>
+    <dimen name="material_72dp">72dip</dimen>
+    <dimen name="material_80dp">80dip</dimen>
+    <dimen name="material_100dp">100dip</dimen>
+    <dimen name="material_114dp">114dip</dimen>
+    <dimen name="material_120dp">120dip</dimen>
+    <dimen name="material_128dp">128dip</dimen>
+    <dimen name="material_144dp">144dip</dimen>
+    <dimen name="material_150dp">150dip</dimen>
+    <dimen name="material_160dp">160dip</dimen>
+
+    <!--material sp-->
+    <dimen name="material_8sp">8sp</dimen>
+    <dimen name="material_10sp">10sp</dimen>
+    <dimen name="material_11sp">11sp</dimen>
+    <dimen name="material_12sp">12sp</dimen>
+    <dimen name="material_13sp">13sp</dimen>
+    <dimen name="material_14sp">14sp</dimen>
+    <dimen name="material_16sp">16sp</dimen>
+    <dimen name="material_18sp">18sp</dimen>
+    <dimen name="material_20sp">20sp</dimen>
+    <dimen name="material_21sp">21sp</dimen>
+    <dimen name="material_23sp">23sp</dimen>
+    <dimen name="material_24sp">24sp</dimen>
+
+
+    <dimen name="material_corners_2dp">2dip</dimen>
+    <dimen name="material_corners_4dp">4dip</dimen>
+    <dimen name="material_corners_6dp">6dip</dimen>
+
+</resources>

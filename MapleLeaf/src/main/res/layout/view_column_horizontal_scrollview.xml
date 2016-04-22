@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#fff3f3f3"
+    android:orientation="horizontal" >
+
+    <RelativeLayout
+        android:id="@+id/rl_column"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/list_item_height_40"
+        android:layout_weight="1">
+
+        <HorizontalScrollView
+            android:id="@+id/chs_news_keywords_title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/list_item_height_40"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:id="@+id/ll_main_page_title_content"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/public_padding_10"
+                android:paddingRight="@dimen/public_padding_10"/>
+        </HorizontalScrollView>
+
+        <View
+            android:id="@+id/shade_left"
+            android:layout_width="@dimen/public_padding_10"
+            android:layout_height="@dimen/list_item_height_40"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/bg_left_white_right_transparent_gradient"
+            android:visibility="gone"/>
+
+        <View
+            android:id="@+id/shade_right"
+            android:layout_width="@dimen/public_padding_10"
+            android:layout_height="@dimen/list_item_height_40"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/bg_right_white_left_transparent_gradient"
+            android:visibility="visible"/>
+    </RelativeLayout>
+
+    <ImageButton
+        android:id="@+id/iv_more_columns"
+        android:layout_width="@dimen/list_item_height_40"
+        android:layout_height="@dimen/list_item_height_40"
+        android:layout_gravity="center_vertical"
+        android:contentDescription="@null"
+        android:scaleType="centerInside"
+        android:src="@drawable/channel_add_selector"/>
+</LinearLayout>

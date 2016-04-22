@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <!-- text color 由深到浅 -->
+    <color name="text_color_0">#000000</color>
+    <color name="text_color_1">#1E1E1E</color>
+    <color name="text_color_2">#2E2E2E</color>
+    <color name="text_color_3">#3F3F3F</color>
+    <color name="text_color_4">#4F4F4F</color>
+    <color name="text_color_5">#5E5E5E</color>
+    <color name="text_color_6">#6E6E6E</color>
+    <color name="text_color_7">#7F7F7F</color>
+    <color name="text_color_8">#8F8F8F</color>
+    <color name="text_color_9">#9E9E9E</color>
+    
+    <color name="public_divider_color">#B3B3B3</color>
+    
+    <color name="light_grey">#E5E5E5</color>
+    <color name="text_red">#F08080</color>
+
+    <color name="red">#D43E37</color>
+    <color name="red_deep">#B61F1B</color>
+    <color name="white">#FFFFFF</color>
+
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="homeLinkGreen">#00ae66</color>
+</resources>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/view_net_error_layout_root_view"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="@dimen/material_64dp"
+        android:layout_height="@dimen/material_64dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_net_error"/>
+
+    <TextView
+        style="@style/hint_style"
+        android:text="@string/retry_message"/>
+
+    <TextView
+        style="@style/message_style"
+        android:text="@string/net_error_message"
+        />
+
+</LinearLayout>

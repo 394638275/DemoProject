@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="left_shadow_color">
+        <item>@color/colorAccent</item>
+        <item>@color/white</item>
+    </array>
+</resources>
