@@ -24,8 +24,8 @@ public class ChannelManage {
 	/** 判断数据库中是否存在用户数据 */
 	private boolean userExist = false;
 	static {
-		defaultUserChannels = new ArrayList<ChannelItem>();
-		defaultOtherChannels = new ArrayList<ChannelItem>();
+		defaultUserChannels = new ArrayList<>();
+		defaultOtherChannels = new ArrayList<>();
 		defaultUserChannels.add(new ChannelItem(1, "推荐", 1, 1));
 		defaultUserChannels.add(new ChannelItem(2, "热点", 2, 1));
 		defaultUserChannels.add(new ChannelItem(3, "杭州", 3, 1));
@@ -50,8 +50,6 @@ public class ChannelManage {
 	private ChannelManage(SQLHelper paramDBHelper) throws SQLException {
 		if (channelDao == null)
 			channelDao = new ChannelDao(paramDBHelper.getContext());
-		// NavigateItemDao(paramDBHelper.getDao(NavigateItem.class));
-		return;
 	}
 
 	/**
@@ -79,15 +77,14 @@ public class ChannelManage {
 		List<Map<String, String>> cacheList = channelDao.listCache(SQLHelper.SELECTED + "= ?", new String[] { "1" });
 		if (cacheList != null && !cacheList.isEmpty()) {
 			userExist = true;
-			List<Map<String, String>> maplist = cacheList;
-			int count = maplist.size();
-			List<ChannelItem> list = new ArrayList<ChannelItem>();
+			int count = cacheList.size();
+			List<ChannelItem> list = new ArrayList<>();
 			for (int i = 0; i < count; i++) {
 				ChannelItem navigate = new ChannelItem();
-				navigate.setId(Integer.valueOf(maplist.get(i).get(SQLHelper.ID)));
-				navigate.setName(maplist.get(i).get(SQLHelper.NAME));
-				navigate.setOrderId(Integer.valueOf(maplist.get(i).get(SQLHelper.ORDERID)));
-				navigate.setSelected(Integer.valueOf(maplist.get(i).get(SQLHelper.SELECTED)));
+				navigate.setId(Integer.valueOf(cacheList.get(i).get(SQLHelper.ID)));
+				navigate.setName(cacheList.get(i).get(SQLHelper.NAME));
+				navigate.setOrderId(Integer.valueOf(cacheList.get(i).get(SQLHelper.ORDERID)));
+				navigate.setSelected(Integer.valueOf(cacheList.get(i).get(SQLHelper.SELECTED)));
 				list.add(navigate);
 			}
 			return list;
@@ -104,7 +101,7 @@ public class ChannelManage {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public List<ChannelItem> getOtherChannel() {
 		Object cacheList = channelDao.listCache(SQLHelper.SELECTED + "= ?", new String[] { "0" });
-		List<ChannelItem> list = new ArrayList<ChannelItem>();
+		List<ChannelItem> list = new ArrayList<>();
 		if (cacheList != null && !((List) cacheList).isEmpty()) {
 			List<Map<String, String>> maplist = (List) cacheList;
 			int count = maplist.size();
@@ -127,28 +124,24 @@ public class ChannelManage {
 
 	/**
 	 * 保存用户频道到数据库
-	 * 
-	 * @param userList
 	 */
 	public void saveUserChannel(List<ChannelItem> userList) {
 		for (int i = 0; i < userList.size(); i++) {
-			ChannelItem channelItem = (ChannelItem) userList.get(i);
+			ChannelItem channelItem = userList.get(i);
 			channelItem.setOrderId(i);
-			channelItem.setSelected(Integer.valueOf(1));
+			channelItem.setSelected(1);
 			channelDao.addCache(channelItem);
 		}
 	}
 
 	/**
 	 * 保存其他频道到数据库
-	 * 
-	 * @param otherList
 	 */
 	public void saveOtherChannel(List<ChannelItem> otherList) {
 		for (int i = 0; i < otherList.size(); i++) {
-			ChannelItem channelItem = (ChannelItem) otherList.get(i);
+			ChannelItem channelItem = otherList.get(i);
 			channelItem.setOrderId(i);
-			channelItem.setSelected(Integer.valueOf(0));
+			channelItem.setSelected(0);
 			channelDao.addCache(channelItem);
 		}
 	}

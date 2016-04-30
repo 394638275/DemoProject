@@ -37,7 +37,7 @@ public class ShowAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View view = LayoutInflater.from(context).inflate(R.layout.adapter_show_item, parent);
+        View view = LayoutInflater.from(context).inflate(R.layout.adapter_show_item, parent, false);
         TextView tv = (TextView) view.findViewById(R.id.tv_adapter);
         tv.setText(mList.get(position));
         return view;

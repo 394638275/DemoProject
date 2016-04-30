@@ -6,9 +6,6 @@ import java.io.Serializable;
  * ITEM的对应可序化队列属性
  * */
 public class ChannelItem implements Serializable {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -6465237897027410019L;
 	/**
 	 * 栏目对应ID
@@ -31,14 +28,14 @@ public class ChannelItem implements Serializable {
 	}
 
 	public ChannelItem(int id, String name, int orderId, int selected) {
-		this.id = Integer.valueOf(id);
+		this.id = id;
 		this.name = name;
-		this.orderId = Integer.valueOf(orderId);
-		this.selected = Integer.valueOf(selected);
+		this.orderId = orderId;
+		this.selected = selected;
 	}
 
 	public int getId() {
-		return this.id.intValue();
+		return id;
 	}
 
 	public String getName() {
@@ -46,7 +43,7 @@ public class ChannelItem implements Serializable {
 	}
 
 	public int getOrderId() {
-		return this.orderId.intValue();
+		return orderId;
 	}
 
 	public Integer getSelected() {
@@ -54,7 +51,7 @@ public class ChannelItem implements Serializable {
 	}
 
 	public void setId(int paramInt) {
-		this.id = Integer.valueOf(paramInt);
+		this.id = paramInt;
 	}
 
 	public void setName(String paramString) {
@@ -62,7 +59,7 @@ public class ChannelItem implements Serializable {
 	}
 
 	public void setOrderId(int paramInt) {
-		this.orderId = Integer.valueOf(paramInt);
+		this.orderId = paramInt;
 	}
 
 	public void setSelected(Integer paramInteger) {
