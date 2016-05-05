@@ -32,11 +32,10 @@ public class FirstFragment extends BaseFragment {
         }
         showAdapter = new ShowAdapter(getActivity(), mList);
         gridView.setAdapter(showAdapter);
-        Logger.d(getClass().getSimpleName(), "lazyLoadData");
     }
 
     @Override
     protected void initData() {
-        Logger.d(getClass().getSimpleName(), "initData");
+
     }
 }

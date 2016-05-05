@@ -5,12 +5,14 @@ import com.lew.mapleleaf.ui.BaseFragment;
 import com.lew.mapleleaf.ui.widgets.progresslayout.ProgressView;
 import com.lew.mapleleaf.ui.widgets.progresslayout.ProgressListener;
 import com.lew.mapleleaf.utils.logger.Logger;
+import com.squareup.leakcanary.CanaryLog;
 
 /**
  * Created by asus 2016/3/26.
  */
 public class SecondFragment extends BaseFragment {
     ProgressView progressView;
+
     @Override
     protected int setLayoutRes() {
         return R.layout.fragment_second;
@@ -22,12 +24,12 @@ public class SecondFragment extends BaseFragment {
         progressView.setProgressListener(new ProgressListener() {
             @Override
             public void onProgressCompleted() {
-                Logger.i(TAG, "onProgressCompleted");
+                Logger.simple("onProgressCompleted");
             }
 
             @Override
             public void onProgressChanged(int seconds) {
-                Logger.i(TAG, "onProgressChanged: " + seconds);
+                Logger.simple(TAG, seconds + "", true);
             }
         });
     }
@@ -35,12 +37,10 @@ public class SecondFragment extends BaseFragment {
     @Override
     protected void lazyLoadData() {
         progressView.start();
-        Logger.d("lazyLoadData");
     }
 
     @Override
     protected void initData() {
-        Logger.d("initData");
     }
 
     @Override

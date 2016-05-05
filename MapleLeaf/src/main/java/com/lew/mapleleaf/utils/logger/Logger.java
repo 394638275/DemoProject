@@ -91,7 +91,7 @@ public final class Logger {
 
     public static void d(String tag, String message, int methodCount) {
         validateMethodCount(methodCount);
-        log(Log.DEBUG, tag, message, methodCount);
+        log(Log.DEBUG, tag, message, methodCount, false);
     }
 
     public static void e(String message) {
@@ -135,7 +135,7 @@ public final class Logger {
         if (message == null) {
             message = "No message/exception is set";
         }
-        log(Log.ERROR, tag, message, methodCount);
+        log(Log.ERROR, tag, message, methodCount, false);
     }
 
     public static void w(String message) {
@@ -152,7 +152,7 @@ public final class Logger {
 
     public static void w(String tag, String message, int methodCount) {
         validateMethodCount(methodCount);
-        log(Log.WARN, tag, message, methodCount);
+        log(Log.WARN, tag, message, methodCount, false);
     }
 
     public static void i(String message) {
@@ -169,7 +169,7 @@ public final class Logger {
 
     public static void i(String tag, String message, int methodCount) {
         validateMethodCount(methodCount);
-        log(Log.INFO, tag, message, methodCount);
+        log(Log.INFO, tag, message, methodCount, false);
     }
 
     public static void v(String message) {
@@ -186,7 +186,7 @@ public final class Logger {
 
     public static void v(String tag, String message, int methodCount) {
         validateMethodCount(methodCount);
-        log(Log.VERBOSE, tag, message, methodCount);
+        log(Log.VERBOSE, tag, message, methodCount, false);
     }
 
     public static void wtf(String message) {
@@ -203,7 +203,27 @@ public final class Logger {
 
     public static void wtf(String tag, String message, int methodCount) {
         validateMethodCount(methodCount);
-        log(Log.ASSERT, tag, message, methodCount);
+        log(Log.ASSERT, tag, message, methodCount, false);
+    }
+
+    public static void simple(String message) {
+        simple(TAG, message);
+    }
+
+    public static void simple(String tag, String message) {
+        simple(tag, message, false);
+    }
+
+    public static void simple(String message, boolean showMethod) {
+        simple(TAG, message, showMethod);
+    }
+
+    public static void simple(String tag, String message, boolean showMethod) {
+        if (showMethod){
+            log(Log.DEBUG, tag, message, settings.methodCount, true);
+        } else {
+            log(Log.DEBUG, tag, message, 0, true);
+        }
     }
 
     /**
@@ -255,33 +275,55 @@ public final class Logger {
     /**
      * This method is synchronized in order to avoid messy of logs' order.
      */
-    private synchronized static void log(int logType, String tag, String message, int methodCount) {
+    private synchronized static void log(int logType, String tag, String message, int methodCount, boolean simple) {
         if (settings.logLevel == LogLevel.NONE) {
             return;
         }
-        logTopBorder(logType, tag);
-        logHeaderContent(logType, tag, methodCount);
-
-        // get bytes of message with system's default charset (which is UTF-8 for Android)
         byte[] bytes = message.getBytes();
         int length = bytes.length;
-        if (length <= CHUNK_SIZE) {
+
+        if (!simple){
+            logTopBorder(logType, tag);
+            logHeaderContent(logType, tag, methodCount);
+
+            // get bytes of message with system's default charset (which is UTF-8 for Android)
+            if (length <= CHUNK_SIZE) {
+                if (methodCount > 0) {
+                    logDivider(logType, tag);
+                }
+                logContent(logType, tag, message);
+                logBottomBorder(logType, tag);
+                return;
+            }
             if (methodCount > 0) {
                 logDivider(logType, tag);
             }
-            logContent(logType, tag, message);
+            for (int i = 0; i < length; i += CHUNK_SIZE) {
+                int count = Math.min(length - i, CHUNK_SIZE);
+                // create a new String with system's default charset (which is UTF-8 for Android)
+                logContent(logType, tag, new String(bytes, i, count));
+            }
             logBottomBorder(logType, tag);
-            return;
+        } else {
+            if (length <= CHUNK_SIZE) {
+                if (methodCount > 0) {
+                    StackTraceElement[] trace = Thread.currentThread().getStackTrace();
+                    StringBuilder builder = new StringBuilder();
+                    builder.append(message).append("     (method:");
+                    for (int i = methodCount; i > 0; i--) {
+                        int stackIndex = i + 5;
+                        builder.append("  ").append(getSimpleClassName(trace[stackIndex].getClassName())).append(".")
+                                .append(trace[stackIndex].getMethodName()).append(" ").append(" (")
+                                .append(trace[stackIndex].getFileName()).append(":").append(trace[stackIndex].getLineNumber())
+                                .append(")");
+                    }
+                    builder.append("    thread: ").append(Thread.currentThread().getName()).append(")");
+                    logChunk(logType, tag, builder.toString());
+                } else {
+                    logChunk(logType, tag, message);
+                }
+            }
         }
-        if (methodCount > 0) {
-            logDivider(logType, tag);
-        }
-        for (int i = 0; i < length; i += CHUNK_SIZE) {
-            int count = Math.min(length - i, CHUNK_SIZE);
-            // create a new String with system's default charset (which is UTF-8 for Android)
-            logContent(logType, tag, new String(bytes, i, count));
-        }
-        logBottomBorder(logType, tag);
     }
 
     private static void logTopBorder(int logType, String tag) {
@@ -361,7 +403,7 @@ public final class Logger {
 
     private static String formatTag(String tag) {
         if (!TextUtils.isEmpty(tag) && !TextUtils.equals(TAG, tag)) {
-            return TAG + "-" + tag;
+            return tag;
         }
         return TAG;
     }
