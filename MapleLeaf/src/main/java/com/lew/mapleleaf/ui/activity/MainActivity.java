@@ -9,6 +9,7 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 
 import com.lew.mapleleaf.R;
 import com.lew.mapleleaf.ui.BaseActivity;
+import com.lew.mapleleaf.ui.fragments.AndroidDesignFragment;
 import com.lew.mapleleaf.ui.fragments.MainPageFragment;
 
 public class MainActivity extends BaseActivity {
@@ -16,6 +17,7 @@ public class MainActivity extends BaseActivity {
     private RadioGroup mBottomBar;
     private RadioButton mMainButton;
     private MainPageFragment mMainPage;
+    private AndroidDesignFragment mDesign;
 
     @Override
     protected void setTitle() {
@@ -46,7 +48,10 @@ public class MainActivity extends BaseActivity {
                         break;
 
                     case R.id.rb_tab_discover:
-
+                        if (mDesign == null){
+                            mDesign = new AndroidDesignFragment();
+                        }
+                        replaceFragment(R.id.fragment_container, mDesign);
                         break;
 
                     case R.id.rb_tab_topic:
