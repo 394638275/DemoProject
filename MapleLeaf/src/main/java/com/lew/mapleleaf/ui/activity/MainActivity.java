@@ -12,6 +12,8 @@ import com.lew.mapleleaf.ui.BaseActivity;
 import com.lew.mapleleaf.ui.fragments.AndroidDesignFragment;
 import com.lew.mapleleaf.ui.fragments.MainPageFragment;
 
+import me.leolin.shortcutbadger.ShortcutBadger;
+
 public class MainActivity extends BaseActivity {
     private FrameLayout mContainer;
     private RadioGroup mBottomBar;
@@ -60,6 +62,8 @@ public class MainActivity extends BaseActivity {
 
                     case R.id.rb_tab_mine:
 
+                        int badgeCount = 10;
+                        ShortcutBadger.applyCount(getApplicationContext() , badgeCount);
                         break;
 
                     default:
@@ -73,6 +77,8 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+
+
 
     }
 
