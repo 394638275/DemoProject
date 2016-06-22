@@ -1,34 +1,102 @@
 apply plugin: 'com.android.application'
 
-
-android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.2"
-
-    defaultConfig {
-        applicationId "com.lew.mapleleaf"
-        minSdkVersion 15
-        targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
-    }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
+def releaseTime() {
+    return new Date().format("yyyy_MM_dd", TimeZone.getTimeZone("UTC"))
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
-    compile 'com.android.support:appcompat-v7:23.3.0'
-    compile 'com.android.support:design:23.3.0'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
+    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.android.support:design:23.4.0'
     compile 'com.squareup.okhttp3:okhttp:3.2.0'
     compile 'com.squareup.okio:okio:1.6.0'
-    compile 'com.android.support:support-v4:23.3.0'
-    compile 'com.android.support:recyclerview-v7:23.3.0'
+    compile 'com.android.support:support-v4:23.4.0'
+    compile 'com.android.support:recyclerview-v7:23.4.0'
     compile 'me.leolin:ShortcutBadger:1.1.4@aar'
 }
+
+android {
+    compileSdkVersion Integer.parseInt(project.ANDROID_BUILD_SDK_VERSION)
+    buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
+
+    defaultConfig {
+        applicationId project.ANDROID_BUILD_APPLICATION_RELEASE
+        minSdkVersion Integer.parseInt(project.ANDROID_BUILD_MIN_SDK_VERSION)
+        targetSdkVersion Integer.parseInt(project.ANDROID_BUILD_MAX_SDK_VERSION)
+        versionCode Integer.parseInt(project.VERSION_CODE)
+        versionName project.VERSION_NAME
+    }
+    signingConfigs {
+//        debug {//debug版本keystore配置
+//            storeFile file("keystore/debug.keystore")
+//        }
+
+        release {//release版本keystore配置
+            storeFile file("keystore/mapleleaf.jks")
+            storePassword "584201314lew"
+            keyAlias "maple_leaf"
+            keyPassword "584201314lew"
+        }
+    }
+    buildTypes {
+        debug {
+//            manifestPlaceholders = [AMAP_KEY: "2ff5f35a1ed8e02614146bde287001d2", EASEMOB_APPKEY: "zhonglianbao#zanjiahaotest"]
+//            buildConfigField "boolean", "LOG_DEBUG", "true"     // 显示Log
+            versionNameSuffix "-debug"
+            minifyEnabled false
+            zipAlignEnabled false
+            shrinkResources false
+            signingConfig signingConfigs.debug
+        }
+        release {
+//            manifestPlaceholders = [AMAP_KEY: "503a1d6b3ecf245245687a5c19948d4b", EASEMOB_APPKEY: "zhonglianbao#zanjiahao"]
+//            buildConfigField "boolean", "LOG_DEBUG", "false"    // 不显示Log
+            minifyEnabled true          //release包是否混淆
+            zipAlignEnabled true        //Zipalign优化
+            shrinkResources true        //支持自动去除没有使用的资源
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'//混淆规则
+            signingConfig signingConfigs.release   //签名
+        }
+    }
+
+    lintOptions {   //执行lint检查，有任何的错误或者警告提示，都会终止构建，我们可以将其关掉。
+        abortOnError false
+    }
+    productFlavors {
+        Baidu {}
+//        pgy {}
+//        xiaomi {}
+//        _360 {}
+//        WanDouJia {}
+//        Tencent {}
+//        meizu {}
+//        huawei {}
+//        yingyonghui {}
+    }
+
+    productFlavors.all { flavor ->
+        flavor.manifestPlaceholders = [PACK_NAME: name]
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def outputFile = output.outputFile
+            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                if (variant.buildType.name.equals('release')){
+                    //这里修改apk文件名
+                    def fileName = "TianDingManager-${defaultConfig.versionName}(${defaultConfig.versionCode})-${variant.productFlavors[0].name}-${releaseTime()}-release.apk"
+                    output.outputFile = new File(outputFile.parent, fileName)
+                }
+                if (variant.buildType.name.equals('debug')){
+                    def fileName = "TianDingManager-${defaultConfig.versionName}(${defaultConfig.versionCode})-${variant.productFlavors[0].name}-${releaseTime()}-debug.apk"
+                    output.outputFile = new File(outputFile.parent, fileName)
+                }
+            }
+        }
+    }
+}
+

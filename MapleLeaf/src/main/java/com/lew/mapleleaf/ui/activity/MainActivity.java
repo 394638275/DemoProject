@@ -62,8 +62,6 @@ public class MainActivity extends BaseActivity {
 
                     case R.id.rb_tab_mine:
 
-                        int badgeCount = 10;
-                        ShortcutBadger.applyCount(getApplicationContext() , badgeCount);
                         break;
 
                     default:

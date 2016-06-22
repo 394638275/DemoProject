@@ -1,13 +1,16 @@
 package com.lew.mapleleaf.ui.fragments;
 
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.EditText;
 
 import com.lew.mapleleaf.R;
 import com.lew.mapleleaf.ui.BaseFragment;
+import com.lew.mapleleaf.ui.activity.BaseWebViewActivity;
 
 /**
  * Created by richie 2016/5/21.
@@ -51,6 +54,14 @@ public class AndroidDesignFragment extends BaseFragment {
                 } else {
                     mInputLayout.setErrorEnabled(false);
                 }
+            }
+        });
+
+        mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), BaseWebViewActivity.class);
+                startActivity(intent);
             }
         });
     }

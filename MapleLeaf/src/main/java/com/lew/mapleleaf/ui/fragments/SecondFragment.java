@@ -5,11 +5,7 @@ import android.widget.Button;
 
 import com.lew.mapleleaf.R;
 import com.lew.mapleleaf.ui.BaseFragment;
-import com.lew.mapleleaf.ui.widgets.progresslayout.ProgressView;
-import com.lew.mapleleaf.ui.widgets.progresslayout.ProgressListener;
 import com.lew.mapleleaf.ui.widgets.views.TextImageButton;
-import com.lew.mapleleaf.utils.logger.Logger;
-import com.squareup.leakcanary.CanaryLog;
 
 /**
  * Created by asus 2016/3/26.
