@@ -14,17 +14,12 @@ import com.lew.mapleleaf.utils.logger.Logger;
 public class StartUpActivity extends BaseActivity {
 
     @Override
-    protected boolean needTitle() {
-        return false;
-    }
-
-    @Override
     protected int addContentRes() {
         return R.layout.activity_start_up;
     }
 
     @Override
-    protected void initView() {
+    protected void initView()  {
 
     }
 

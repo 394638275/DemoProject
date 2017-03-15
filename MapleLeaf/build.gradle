@@ -67,7 +67,10 @@ android {
         abortOnError false
     }
     productFlavors {
-        Baidu {}
+        dev{
+            minSdkVersion 21    //仅开发用，优化编译速度（instance run）
+        }
+//        Baidu {}
 //        pgy {}
 //        xiaomi {}
 //        _360 {}
@@ -98,5 +101,6 @@ android {
             }
         }
     }
+    buildToolsVersion '25.0.0'
 }
 

@@ -18,6 +18,7 @@ public abstract class BaseActivity extends FragmentActivity {
     protected TitleBar mTitleBar;
     protected ImageView mCollectView;
     protected ViewGroup mRootView;
+    private boolean mNeedTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +46,8 @@ public abstract class BaseActivity extends FragmentActivity {
         return false;
     }
 
-    protected boolean needTitle(){
-        return true;
+    protected void showTitle(boolean showTitle){
+        this.mNeedTitle = showTitle;
     }
 
     private void initTitle() {
@@ -65,7 +66,7 @@ public abstract class BaseActivity extends FragmentActivity {
             window.setStatusBarColor(Color.TRANSPARENT);
         }
         mTitleBar = (TitleBar) findViewById(R.id.title_bar);
-        if (needTitle()) {
+        if (mNeedTitle) {
             mTitleBar.setVisibility(View.VISIBLE);
             mTitleBar.setImmersive(true);
             mTitleBar.setBackgroundColor(Color.parseColor("#64b4ff"));

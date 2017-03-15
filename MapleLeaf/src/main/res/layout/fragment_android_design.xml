@@ -5,6 +5,14 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tab_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabIndicatorColor="@color/colorAccent"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="@color/colorAccent"/>
+
     <android.support.design.widget.TextInputLayout
         android:id="@+id/text_input_layout"
         android:layout_width="match_parent"
@@ -20,11 +28,32 @@
             android:saveEnabled="false"/>
     </android.support.design.widget.TextInputLayout>
 
+
+    <com.lew.mapleleaf.ui.widgets.views.SlideSwitch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:isOpen="true"
+        app:shape="circle"/>
+
+    <com.lew.mapleleaf.ui.widgets.views.SlideSwitch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:isOpen="false"
+        app:shape="rect"/>
+
+    <com.lew.mapleleaf.ui.widgets.slideswitch.SwitchButton
+        android:id="@+id/recycler_item_sb"
+        style="@style/SwitchButtonMD"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"/>
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/float_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end"
+        android:layout_gravity="end|bottom"
         android:src="@drawable/ic_launcher"
         app:backgroundTint="#ff8080eb"
         app:elevation="5dp"

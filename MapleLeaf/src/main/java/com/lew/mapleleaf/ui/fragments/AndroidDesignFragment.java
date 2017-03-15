@@ -2,22 +2,28 @@ package com.lew.mapleleaf.ui.fragments;
 
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TabLayout;
 import android.support.design.widget.TextInputLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 
 import com.lew.mapleleaf.R;
 import com.lew.mapleleaf.ui.BaseFragment;
 import com.lew.mapleleaf.ui.activity.BaseWebViewActivity;
+import com.lew.mapleleaf.ui.activity.SwitchButtonActivity;
+import com.lew.mapleleaf.ui.widgets.slideswitch.SwitchButton;
 
 /**
  * Created by richie 2016/5/21.
  */
 public class AndroidDesignFragment extends BaseFragment {
+    private TabLayout mTab;
     private TextInputLayout mInputLayout;
     private FloatingActionButton mButton;
+    private SwitchButton mSwitch;
     @Override
     protected int setLayoutRes() {
         return R.layout.fragment_android_design;
@@ -25,6 +31,7 @@ public class AndroidDesignFragment extends BaseFragment {
 
     @Override
     protected void initView() {
+        mTab = findView(R.id.tab_main);
         mInputLayout = findView(R.id.text_input_layout);
         mInputLayout.setCounterEnabled(true);
         mInputLayout.setCounterMaxLength(5);
@@ -60,8 +67,20 @@ public class AndroidDesignFragment extends BaseFragment {
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), BaseWebViewActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(getActivity(), BaseWebViewActivity.class);
+//                startActivity(intent);
+                mTab.addTab(mTab.newTab().setText("newTab"));
+            }
+        });
+
+        mSwitch = findView(R.id.recycler_item_sb);
+        mSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    Intent intent = new Intent(getActivity(), SwitchButtonActivity.class);
+                    startActivity(intent);
+                }
             }
         });
     }
