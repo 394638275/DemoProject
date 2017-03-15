@@ -1,8 +1,40 @@
-*.iml
-.gradle
-/local.properties
-/.idea/workspace.xml
-/.idea/libraries
+.gradle/
+build/
+captures/
 .DS_Store
-/build
-/captures
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Intellij project files
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# Eclipse project files
+.classpath
+.project
+
+# generated files
+bin/
+gen/
+
+# Java class files
+*.class
+
+# files for the dex VM
+*.dex
+
+*.apk
+*.ap_
+src/.DS_Store
+src/main/.DS_Store
+src/main/java/.DS_Store
+src/main/java/com/.DS_Store
+src/main/java/com/lew/.DS_Store
+src/main/java/com/lew/mapleleaf/.DS_Store
+src/main/java/com/lew/mapleleaf/ui/.DS_Store
+src/main/java/com/lew/mapleleaf/ui/widgets/.DS_Store
+src/main/java/com/lew/mapleleaf/ui/widgets/autoscrollviewpager/
+src/main/java/com/lew/mapleleaf/ui/widgets/views/.DS_Store
