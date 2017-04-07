@@ -29,6 +29,8 @@ public class MainActivity extends BaseActivity {
     @Override
     protected int addContentRes() {
         return R.layout.activity_main;
+
+
     }
 
     @Override
