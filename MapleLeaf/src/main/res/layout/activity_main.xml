@@ -1,50 +1,17 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical"
-              tools:context="com.lew.mapleleaf.ui.activity.MainActivity">
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:openDrawer="start">
 
     <FrameLayout
-        android:id="@+id/fragment_container"
+        android:id="@+id/fl_container"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_height="match_parent"
+        />
 
-    <RadioGroup
-        android:id="@+id/rg_tab_menu"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/title_height"
-        android:background="@color/light_grey"
-        android:orientation="horizontal">
+    <include layout="@layout/view_navigation_layout"/>
 
-        <RadioButton
-            android:id="@+id/rb_tab_main_page"
-            style="@style/radio_button_style"
-            android:drawableTop="@drawable/tab_main_selector"
-            android:text="@string/main_page"
-            android:textColor="@color/tab_text_color_selector"/>
-
-        <RadioButton
-            android:id="@+id/rb_tab_discover"
-            style="@style/radio_button_style"
-            android:drawableTop="@drawable/tab_discover_selector"
-            android:text="@string/discover"
-            android:textColor="@color/tab_text_color_selector"/>
-
-        <RadioButton
-            android:id="@+id/rb_tab_topic"
-            style="@style/radio_button_style"
-            android:drawableTop="@drawable/tab_topic_selector"
-            android:text="@string/topic"
-            android:textColor="@color/tab_text_color_selector"/>
-
-        <RadioButton
-            android:id="@+id/rb_tab_mine"
-            style="@style/radio_button_style"
-            android:drawableTop="@drawable/tab_mine_selector"
-            android:text="@string/mine"
-            android:textColor="@color/tab_text_color_selector"/>
-    </RadioGroup>
-
-</LinearLayout>
+</android.support.v4.widget.DrawerLayout>

@@ -24,13 +24,13 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingLeft="@dimen/public_padding_10"
-                android:paddingRight="@dimen/public_padding_10"/>
+                android:paddingLeft="@dimen/public_padding"
+                android:paddingRight="@dimen/public_padding"/>
         </HorizontalScrollView>
 
         <View
             android:id="@+id/shade_left"
-            android:layout_width="@dimen/public_padding_10"
+            android:layout_width="@dimen/public_padding"
             android:layout_height="@dimen/list_item_height_40"
             android:layout_gravity="left"
             android:background="@drawable/bg_left_white_right_transparent_gradient"
@@ -38,7 +38,7 @@
 
         <View
             android:id="@+id/shade_right"
-            android:layout_width="@dimen/public_padding_10"
+            android:layout_width="@dimen/public_padding"
             android:layout_height="@dimen/list_item_height_40"
             android:layout_gravity="right"
             android:background="@drawable/bg_right_white_left_transparent_gradient"

@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'android-apt'
 
 def releaseTime() {
     return new Date().format("yyyy_MM_dd", TimeZone.getTimeZone("UTC"))
@@ -29,7 +30,6 @@ android {
     }
     buildTypes {
         debug {
-//            manifestPlaceholders = [AMAP_KEY: "2ff5f35a1ed8e02614146bde287001d2", EASEMOB_APPKEY: "zhonglianbao#zanjiahaotest"]
 //            buildConfigField "boolean", "LOG_DEBUG", "true"     // 显示Log
             versionNameSuffix "-debug"
             minifyEnabled false
@@ -38,7 +38,6 @@ android {
             signingConfig signingConfigs.debug
         }
         release {
-//            manifestPlaceholders = [AMAP_KEY: "503a1d6b3ecf245245687a5c19948d4b", EASEMOB_APPKEY: "zhonglianbao#zanjiahao"]
 //            buildConfigField "boolean", "LOG_DEBUG", "false"    // 不显示Log
             minifyEnabled true          //release包是否混淆
             zipAlignEnabled true        //Zipalign优化
@@ -89,16 +88,30 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
-    compile 'com.android.support:appcompat-v7:23.4.0'
-    compile 'com.android.support:design:23.4.0'
-    compile 'com.squareup.okhttp3:okhttp:3.2.0'
-    compile 'com.squareup.okio:okio:1.6.0'
-    compile 'com.android.support:support-v4:23.4.0'
-    compile 'com.android.support:recyclerview-v7:23.4.0'
+    // support lib
+    compile "com.android.support:appcompat-v7:${rootProject.ext.support}"
+    compile "com.android.support:recyclerview-v7:${rootProject.ext.support}"
+    compile "com.android.support:cardview-v7:${rootProject.ext.support}"
+    compile "com.android.support:support-v4:${rootProject.ext.support}"
+    compile "com.android.support:design:${rootProject.ext.support}"
     compile 'me.leolin:ShortcutBadger:1.1.4@aar'
+    compile 'com.google.code.gson:gson:2.8.0'
+    // butterknife
+    apt 'com.jakewharton:butterknife-compiler:8.2.1'
+    compile 'com.jakewharton:butterknife:8.2.1'
+    // rxjava
+    compile 'io.reactivex:rxjava:1.1.9'
+    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
+    compile 'com.trello:rxlifecycle:1.0'
+    compile 'com.trello:rxlifecycle-components:1.0'
+    compile 'com.tbruyelle.rxpermissions:rxpermissions:0.9.1@aar'
+    // dagger
+    apt 'com.google.dagger:dagger-compiler:2.6'
+    compile 'com.google.dagger:dagger:2.6'
 }

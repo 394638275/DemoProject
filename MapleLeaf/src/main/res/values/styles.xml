@@ -10,102 +10,24 @@
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
             backward-compatibility can go here.
-
         -->
-    </style>
-
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="progressLayoutDefStyle">@style/progressLayoutStyle</item>
+
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:fitsSystemWindows">false</item>
+        <item name="android:windowIsTranslucent">true</item>
     </style>
 
-    <style name="radio_button_style">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_weight">1</item>
-        <item name="android:button">@null</item>
-        <item name="android:layout_gravity">center</item>
-        <item name="android:gravity">center</item>
-        <item name="android:textSize">@dimen/text_size_12</item>
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- Customize your theme here. -->
+
     </style>
 
-    <style name="top_category_scroll_view_item_text">
-        <item name="android:textSize">@dimen/text_size_16</item>
-        <item name="android:textStyle">italic</item>
-        <item name="android:gravity">center</item>
-    </style>
+    <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
 
-    <style name="DefaultSmartStyle">
-        <item name="loading_layout">@layout/default_loading_layout</item>
-        <item name="none_content">@layout/default_none_layout</item>
-        <item name="network_content">@layout/default_connectionless_layout</item>
-        <item name="failed_content">@layout/default_failed_layout</item>
-    </style>
-
-    <style name="message_style">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">@dimen/material_16dp</item>
-        <item name="android:textColor">@android:color/black</item>
-        <item name="android:textSize">@dimen/material_18sp</item>
-    </style>
-
-    <style name="hint_style">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">@dimen/material_16dp</item>
-        <item name="android:textColor">@android:color/darker_gray</item>
-        <item name="android:textSize">@dimen/material_13sp</item>
-    </style>
-
-    <style name="button_style">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_margin">@dimen/material_4dp</item>
-        <item name="android:textSize">@dimen/material_11sp</item>
-    </style>
-
-    <style name="progressLayoutStyle">
-        <item name="loading_layout">@layout/loading_layout</item>
-        <item name="none_content">@layout/none_layout</item>
-        <item name="network_content">@layout/connectionless_layout</item>
-        <item name="failed_content">@layout/failed_layout</item>
-    </style>
-
-    <style name="SwitchButtonMD">
-        <item name="kswThumbDrawable">@drawable/ksw_md_thumb</item>
-        <item name="kswBackColor">@color/ksw_md_back_color</item>
-        <item name="kswBackMeasureRatio">1.45</item>
-        <item name="kswThumbMarginLeft">-16dp</item>
-        <item name="kswThumbMarginTop">-14dp</item>
-        <item name="kswThumbMarginRight">-16dp</item>
-        <item name="kswThumbMarginBottom">-14dp</item>
-        <item name="kswThumbWidth">@dimen/ksw_md_thumb_ripple_size</item>
-        <item name="kswThumbHeight">@dimen/ksw_md_thumb_ripple_size</item>
-    </style>
-
-    <style name="StyleTitleText">
-        <item name="android:paddingTop">4dp</item>
-        <item name="android:paddingBottom">2dp</item>
-        <item name="android:textColor">#444444</item>
-        <item name="android:textSize">16sp</item>
-    </style>
-
-    <style name="SwitchButtonStyle">
-        <item name="android:paddingLeft">10dp</item>
-        <item name="android:paddingRight">10dp</item>
-        <item name="android:paddingTop">4dp</item>
-        <item name="android:paddingBottom">4dp</item>
-    </style>
-
-    <style name="SwitchButtonStyleMD" parent="SwitchButtonMD">
-        <item name="android:paddingLeft">10dp</item>
-        <item name="android:paddingRight">10dp</item>
-        <item name="android:paddingTop">4dp</item>
-        <item name="android:paddingBottom">4dp</item>
     </style>
 
 </resources>

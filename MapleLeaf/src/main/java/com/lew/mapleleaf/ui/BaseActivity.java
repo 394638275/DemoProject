@@ -1,113 +1,100 @@
 package com.lew.mapleleaf.ui;
 
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.ImageView;
 
-import com.lew.mapleleaf.R;
-import com.lew.mapleleaf.ui.widgets.views.TitleBar;
-import com.lew.mapleleaf.utils.app.ActivityManager;
+import com.lew.mapleleaf.ui.module.base.IBasePresenter;
+import com.lew.mapleleaf.ui.module.base.IBaseView;
+import com.trello.rxlifecycle.LifecycleTransformer;
+import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
-public abstract class BaseActivity extends FragmentActivity {
-    protected TitleBar mTitleBar;
-    protected ImageView mCollectView;
-    protected ViewGroup mRootView;
-    private boolean mNeedTitle;
+import butterknife.ButterKnife;
+
+/**
+ * Created by Richie 2017/4/7.
+ */
+
+public abstract class BaseActivity<T extends IBasePresenter> extends RxAppCompatActivity implements IBaseView{
+
+    protected String TAG = getClass().getSimpleName();
+
+    protected T mPresenter;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_base);
-        ActivityManager.getInstance().addActivity(this);
-        initTitle();
-        addContent();
-        initView();
-        initData();
+        setContentView(attachLayoutRes());
+        ButterKnife.bind(this);
+        initInjector();
+        initViews();
+        updateViews(false);
     }
 
-    private void addContent() {
-        mRootView = (ViewGroup) findViewById(R.id.main_content);
-        View view = getLayoutInflater().inflate(addContentRes(), mRootView, false);
-        mRootView.addView(view);
-        int titleBarHeight = mTitleBar.getTitleBarHeight();
-        view.setPadding(0, titleBarHeight, 0, 0);
-        if (setContentImmersive()) {
-            mTitleBar.setBackgroundResource(android.R.color.transparent);
-        }
-    }
+    /**
+     * 绑定布局文件
+     *
+     * @return 布局文件ID
+     */
+    @LayoutRes
+    protected abstract int attachLayoutRes();
 
-    protected boolean setContentImmersive() {
-        return false;
-    }
+    /**
+     * Dagger 注入
+     */
+    protected abstract void initInjector();
 
-    protected void showTitle(boolean showTitle){
-        this.mNeedTitle = showTitle;
-    }
+    /**
+     * 初始化视图控件
+     */
+    protected abstract void initViews();
 
-    private void initTitle() {
-        if (hasKitKat() && !hasLollipop()) {
-            // 透明状态栏
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            // 透明导航栏
-            // getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-        } else if (hasLollipop()) {
-            Window window = getWindow();
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS | WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    // | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(Color.TRANSPARENT);
-        }
-        mTitleBar = (TitleBar) findViewById(R.id.title_bar);
-        if (mNeedTitle) {
-            mTitleBar.setVisibility(View.VISIBLE);
-            mTitleBar.setImmersive(true);
-            mTitleBar.setBackgroundColor(Color.parseColor("#64b4ff"));
-            mTitleBar.setTitleColor(Color.WHITE);
-            mTitleBar.setSubTitleColor(Color.WHITE);
-            mTitleBar.setDividerColor(Color.GRAY);
-            setTitle();
-        } else {
-            mTitleBar.setVisibility(View.GONE);
-        }
-    }
+    /**
+     * 更新视图控件
+     */
+    protected abstract void updateViews(boolean isRefresh);
 
-    protected void setTitle() {
-        mTitleBar.setLeftImageResource(R.drawable.title_back);
-        mTitleBar.setLeftText("返回");
-        mTitleBar.setLeftTextColor(Color.WHITE);
-        mTitleBar.setLeftClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-    }
-
-    protected abstract int addContentRes();
-
-    protected abstract void initView();
-
-    protected abstract void initData();
-
-    protected boolean hasKitKat() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
-    }
-
-    protected boolean hasLollipop() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
+    @Override
+    public void showLoading() {
+//        if (mLoadingLayout != null){
+//            mLoadingLayout.showLoading();
+//        }
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        ActivityManager.getInstance().killActivity(this);
+    public void showContent() {
+//        if (mLoadingLayout != null){
+//            mLoadingLayout.showContent();
+//        }
     }
+
+    @Override
+    public void showNetError(View.OnClickListener onRetryListener) {
+//        if (mLoadingLayout != null){
+//            mLoadingLayout.showError();
+//        }
+    }
+
+    @Override
+    public <T> LifecycleTransformer<T> bindToLife() {
+        return this.bindToLifecycle();
+    }
+
+    @Override
+    public void finishRefresh() {
+
+    }
+
+    /**
+     * 添加 Fragment
+     */
+    protected void addFragment(int containerViewId, Fragment fragment) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.add(containerViewId, fragment);
+        fragmentTransaction.commit();
+    }
+
 }
