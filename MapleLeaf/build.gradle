@@ -1,21 +1,22 @@
 apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
 
-def releaseTime() {
+static def releaseTime() {
     return new Date().format("yyyy_MM_dd", TimeZone.getTimeZone("UTC"))
 }
 
 android {
-    compileSdkVersion Integer.parseInt(project.ANDROID_BUILD_SDK_VERSION)
-    buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
+    compileSdkVersion rootProject.ext.compileSdk
+    buildToolsVersion rootProject.ext.buildTools
 
     defaultConfig {
-        applicationId project.ANDROID_BUILD_APPLICATION_RELEASE
-        minSdkVersion Integer.parseInt(project.ANDROID_BUILD_MIN_SDK_VERSION)
-        targetSdkVersion Integer.parseInt(project.ANDROID_BUILD_MAX_SDK_VERSION)
-        versionCode Integer.parseInt(project.VERSION_CODE)
-        versionName project.VERSION_NAME
+        applicationId rootProject.ext.packageName
+        minSdkVersion rootProject.ext.minSdk
+        targetSdkVersion rootProject.ext.targetSdk
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
     }
+
     signingConfigs {
 //        debug {//debug版本keystore配置
 //            storeFile file("keystore/debug.keystore")
@@ -30,7 +31,7 @@ android {
     }
     buildTypes {
         debug {
-//            buildConfigField "boolean", "LOG_DEBUG", "true"     // 显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "true"     // 显示Log
             versionNameSuffix "-debug"
             minifyEnabled false
             zipAlignEnabled false
@@ -38,7 +39,7 @@ android {
             signingConfig signingConfigs.debug
         }
         release {
-//            buildConfigField "boolean", "LOG_DEBUG", "false"    // 不显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "false"    // 不显示Log
             minifyEnabled true          //release包是否混淆
             zipAlignEnabled true        //Zipalign优化
             shrinkResources true        //支持自动去除没有使用的资源
@@ -75,11 +76,11 @@ android {
             if (outputFile != null && outputFile.name.endsWith('.apk')) {
                 if (variant.buildType.name.equals('release')){
                     //这里修改apk文件名
-                    def fileName = "TianDingManager-${defaultConfig.versionName}(${defaultConfig.versionCode})-${variant.productFlavors[0].name}-${releaseTime()}-release.apk"
+                    def fileName = "MapleLeaf-${defaultConfig.versionName}(${defaultConfig.versionCode})-${variant.productFlavors[0].name}-${releaseTime()}-release.apk"
                     output.outputFile = new File(outputFile.parent, fileName)
                 }
                 if (variant.buildType.name.equals('debug')){
-                    def fileName = "TianDingManager-${defaultConfig.versionName}(${defaultConfig.versionCode})-${variant.productFlavors[0].name}-${releaseTime()}-debug.apk"
+                    def fileName = "MapleLeaf-${defaultConfig.versionName}(${defaultConfig.versionCode})-${variant.productFlavors[0].name}-${releaseTime()}-debug.apk"
                     output.outputFile = new File(outputFile.parent, fileName)
                 }
             }

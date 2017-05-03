@@ -20,8 +20,6 @@ import butterknife.BindView;
 
 public class MainFragment extends BaseFragment {
 
-    @BindView(R.id.tool_bar)
-    Toolbar mToolBar;
     @BindView(R.id.tab_layout)
     TabLayout mTabLayout;
     @BindView(R.id.view_pager)
@@ -39,11 +37,7 @@ public class MainFragment extends BaseFragment {
 
     @Override
     protected void initViews(View rootView) {
-        initToolBar();
-    }
 
-    private void initToolBar() {
-        mToolBar.setTitle(R.string.app_name);
     }
 
     @Override

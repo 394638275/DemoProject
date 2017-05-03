@@ -37,6 +37,11 @@ public class SplashActivity extends BaseActivity {
 
     }
 
+    @Override
+    protected void initData() {
+
+    }
+
     @SuppressWarnings("unchecked")
     @Override
     protected void updateViews(boolean isRefresh) {

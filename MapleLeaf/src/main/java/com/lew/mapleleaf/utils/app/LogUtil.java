@@ -117,7 +117,6 @@ public class LogUtil {
                 writer = null;
             }
         }
-
         public void end() {
             isRunning = false;
         }
@@ -130,7 +129,6 @@ public class LogUtil {
      * @param iswrite    是否需要写入sdk
      */
     public void startWriteLogToSdcard(String filePath,boolean iswrite) {
-
         if (iswrite) {
             if (logWriter == null) {
                 try {
@@ -225,7 +223,6 @@ public class LogUtil {
                 }
             }
         }
-
         public void end() {
             isRunning = false;
         }
@@ -238,8 +235,7 @@ public class LogUtil {
      * @param allParams 需要上传的额外的参数【除了日志以外】
      * @param isUploadLog    是否需要上传
      */
-    public void startUploadLog(String strUrl, HashMap<String, String>
-            allParams,boolean isUploadLog) {
+    public void startUploadLog(String strUrl, HashMap<String, String> allParams,boolean isUploadLog) {
 
         if (isUploadLog) {
             if (logUploader == null) {
@@ -268,7 +264,6 @@ public class LogUtil {
      * @param isShowLog    是否显示
      */
     public static void v(String tag, String message,boolean isShowLog) {
-
         if (isShowLog) {
             Log.v(tag, getDetailMessage(message));
         }
@@ -295,7 +290,6 @@ public class LogUtil {
      * @param isShowLog    是否显示
      */
     public static void e(String tag, String message,boolean isShowLog) {
-
         if (isShowLog) {
             Log.e(tag, getDetailMessage(message));
         }
@@ -308,7 +302,6 @@ public class LogUtil {
      * @param isShowLog    isShowLog
      */
     public static void e(String message,boolean isShowLog) {
-
         if (isShowLog) {
             String[] output = getTagAndDetailMessage(message);
             Log.e(output[0], output[1]);
@@ -323,7 +316,6 @@ public class LogUtil {
      * @param isShowLog    isShowLog
      */
     public static void i(String tag, String message,boolean isShowLog) {
-
         if (isShowLog) {
             Log.i(tag, getDetailMessage(message));
         }
@@ -336,7 +328,6 @@ public class LogUtil {
      * @param isShowLog    isShowLog
      */
     public static void i(String message,boolean isShowLog) {
-
         if (isShowLog) {
             String[] output = getTagAndDetailMessage(message);
             Log.i(output[0], output[1]);
@@ -351,7 +342,6 @@ public class LogUtil {
      * @param isShowLog    isShowLog
      */
     public static void d(String tag, String message,boolean isShowLog) {
-
         if (isShowLog) {
             Log.d(tag, getDetailMessage(message));
         }
@@ -364,7 +354,6 @@ public class LogUtil {
      * @param isShowLog    isShowLog
      */
     public static void d(String message,boolean isShowLog) {
-
         if (isShowLog) {
             String[] output = getTagAndDetailMessage(message);
             Log.d(output[0], output[1]);
@@ -379,7 +368,6 @@ public class LogUtil {
      * @param isShowLog  isShowLog
      */
     public static void w(String tag, String message,boolean isShowLog) {
-
         if (isShowLog) {
             Log.w(tag, getDetailMessage(message));
         }
@@ -392,7 +380,6 @@ public class LogUtil {
      * @param isShowLog    isShowLog
      */
     public static void w(String message,boolean isShowLog) {
-
         if (isShowLog) {
             String[] output = getTagAndDetailMessage(message);
             Log.w(output[0], output[1]);
@@ -413,13 +400,10 @@ public class LogUtil {
                 continue;
             }
             //栈顶的下一个就是需要调用这个类的地方
-            else {
-                int b = ste.getClassName().lastIndexOf(".") + 1;
-                output[0] = ste.getClassName().substring(b);
-                output[1] = output[0] + "->" + ste.getMethodName() + "():" + ste.getLineNumber()
-                        + "->" + message;
-                break;
-            }
+            int b = ste.getClassName().lastIndexOf(".") + 1;
+            output[0] = ste.getClassName().substring(b);
+            output[1] = output[0] + "->" + ste.getMethodName() + "():" + ste.getLineNumber() + "->" + message;
+            break;
         }
         return output;
     }
@@ -438,13 +422,10 @@ public class LogUtil {
                 continue;
             }
             //栈顶的下一个就是需要调用这个类的地方[此处取出类名和方法名还有行号]
-            else {
-                int b = ste.getClassName().lastIndexOf(".") + 1;
-                String TAG = ste.getClassName().substring(b);
-                detailMessage = TAG + "->" + ste.getMethodName() + "():" + ste.getLineNumber()
-                        + "->" + message;
-                break;
-            }
+            int b = ste.getClassName().lastIndexOf(".") + 1;
+            String TAG = ste.getClassName().substring(b);
+            detailMessage = TAG + "->" + ste.getMethodName() + "():" + ste.getLineNumber() + "->" + message;
+            break;
         }
         return detailMessage;
     }

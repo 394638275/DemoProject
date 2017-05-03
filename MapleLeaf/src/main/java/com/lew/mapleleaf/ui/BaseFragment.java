@@ -1,7 +1,7 @@
 package com.lew.mapleleaf.ui;
 
-import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.lew.mapleleaf.ui.module.base.IBasePresenter;
 import com.lew.mapleleaf.ui.module.base.IBaseView;
+import com.lew.mapleleaf.ui.module.main.TitleBuilder;
 import com.trello.rxlifecycle.LifecycleTransformer;
 import com.trello.rxlifecycle.components.support.RxFragment;
 
@@ -16,16 +17,11 @@ import butterknife.ButterKnife;
 
 public abstract class BaseFragment<T extends IBasePresenter> extends RxFragment implements IBaseView {
 
+    protected String TAG = getClass().getSimpleName();
     protected T mPresenter;
-    protected Context mContext;
     private boolean mIsMulti = false;
     protected View mRootView;
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        mContext = context;
-    }
+    protected TitleBuilder mTitleBuilder;
 
     @Nullable
     @Override
@@ -35,12 +31,19 @@ public abstract class BaseFragment<T extends IBasePresenter> extends RxFragment 
             ButterKnife.bind(this, mRootView);
             initInjector();
             initViews(mRootView);
+            initTitle(mRootView);
         }
         ViewGroup parent = (ViewGroup) mRootView.getParent();
         if (parent != null) {
             parent.removeView(mRootView);
         }
         return mRootView;
+    }
+
+    @CallSuper
+    private void initTitle(View mRootView) {
+        mTitleBuilder = new TitleBuilder(mRootView);
+        mTitleBuilder.buildLeftBackTitle("这是标题", null);
     }
 
     @Override

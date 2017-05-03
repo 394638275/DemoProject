@@ -25,6 +25,8 @@ import android.provider.Settings;
 import android.view.Window;
 import android.view.WindowManager;
 
+import java.io.File;
+
 /**
  * 手机状态工具类 主要包括网络、蓝牙、屏幕亮度、飞行模式、音量等
  *
@@ -295,5 +297,17 @@ public class DeviceStatusUtils {
             }
         }
         ((AudioManager) context.getSystemService(Context.AUDIO_SERVICE)).setStreamVolume(AudioManager.STREAM_RING, ringVolume, AudioManager.FLAG_PLAY_SOUND);
+    }
+
+    /**
+     * 根据/system/bin/或/system/xbin目录下是否存在su文件判断是否已ROOT
+     * @return true：已ROOT
+     */
+    public static boolean isRoot() {
+        try {
+            return new File("/system/bin/su").exists() || new File("/system/xbin/su").exists();
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

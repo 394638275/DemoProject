@@ -25,7 +25,7 @@ public class MapleLeafApplication extends Application {
      * 初始化日志工具
      */
     private void initLogger() {
-        Logger.init().setLogLevel(BuildConfig.DEBUG ? Logger.LogLevel.FULL : Logger.LogLevel.NONE);
+        Logger.init().setLogLevel(BuildConfig.LOG_DEBUG ? Logger.LogLevel.FULL : Logger.LogLevel.NONE);
     }
 
     /**

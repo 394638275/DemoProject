@@ -22,6 +22,12 @@ public class DaggerActivity extends BaseActivity {
     FlowerCollector mFlowerCollector;
 
     @Override
+    protected void initTitle() {
+        super.initTitle();
+        mToolbar.setTitle("Dagger Activity");
+    }
+
+    @Override
     protected int attachLayoutRes() {
         return R.layout.activity_dagger_demo;
     }
@@ -33,6 +39,11 @@ public class DaggerActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
+
+    }
+
+    @Override
+    protected void initData() {
 
     }
 
