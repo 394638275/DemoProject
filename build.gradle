@@ -6,7 +6,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.1'
-
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -21,4 +21,20 @@ allprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+ext {
+    compileSdk = 25
+    minSdk = 14
+    targetSdk = 25
+    // 用了25.1.1发现专题界面的浮标按钮没有动画效果了。改回25.0.1
+    // support = "25.1.1"
+    support = "25.3.1"
+    buildTools = "25.0.2"
+
+    versionCode = 1
+    versionName = "v1.0.1"
+
+    packageName = "com.lew.mapleleaf"
+    packageNameDebug = "com.lew.mapleleaf.dev"
 }
