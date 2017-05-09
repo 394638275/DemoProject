@@ -24,7 +24,7 @@ public class DaggerActivity extends BaseActivity {
     @Override
     protected void initTitle() {
         super.initTitle();
-        mToolbar.setTitle("Dagger Activity");
+        mTitleBuilder.buildLeftBackTitle("Dagger Activity");
     }
 
     @Override

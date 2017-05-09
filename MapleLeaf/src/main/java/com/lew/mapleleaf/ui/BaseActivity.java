@@ -14,6 +14,7 @@ import android.view.WindowManager;
 import com.lew.mapleleaf.R;
 import com.lew.mapleleaf.ui.module.base.IBasePresenter;
 import com.lew.mapleleaf.ui.module.base.IBaseView;
+import com.lew.mapleleaf.ui.module.main.TitleBuilder;
 import com.lew.mapleleaf.utils.common.ScreenUtils;
 import com.lew.mapleleaf.utils.logger.Logger;
 import com.trello.rxlifecycle.LifecycleTransformer;
@@ -31,6 +32,7 @@ public abstract class BaseActivity<T extends IBasePresenter> extends RxAppCompat
 
     protected T mPresenter;
     protected Toolbar mToolbar;
+    protected TitleBuilder mTitleBuilder;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,6 +49,7 @@ public abstract class BaseActivity<T extends IBasePresenter> extends RxAppCompat
 
     @CallSuper
     protected void initTitle() {
+        mTitleBuilder = new TitleBuilder(this);
         mToolbar = (Toolbar) findViewById(R.id.title_toolbar);
         if (mToolbar != null){
             int statusHeight = ScreenUtils.getStatusHeight(this);

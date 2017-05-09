@@ -3,10 +3,10 @@ package com.lew.mapleleaf.ui.module.main;
 import android.app.Activity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.ViewStub;
 import android.widget.TextView;
 
 import com.lew.mapleleaf.R;
+import com.lew.mapleleaf.ui.MapleLeafApplication;
 
 import java.lang.ref.WeakReference;
 
@@ -15,48 +15,66 @@ import java.lang.ref.WeakReference;
  */
 
 public class TitleBuilder {
-    public static final int EMPTY_RESOURCE = -1;
-    private static final int DEFAULT_BACK = -2;
+    private static final int EMPTY_RESOURCE = -1;
     private WeakReference<Activity> reference;
-    private View mMainView;
+    private WeakReference<View> viewReference;
 
     public TitleBuilder(Activity activity) {
         reference = new WeakReference<>(activity);
-        ViewStub stub = (ViewStub) activity.findViewById(R.id.title_container);
-        if (stub != null) {
-            stub.setLayoutResource(R.layout.view_title_layout);
-            mMainView = stub.inflate();
-        }
     }
 
     public TitleBuilder(View mRootView) {
-        reference = new WeakReference<>((Activity) mRootView.getContext());
-        ViewStub stub = (ViewStub) mRootView.findViewById(R.id.title_container);
-        if (stub != null) {
-            stub.setLayoutResource(R.layout.view_title_layout);
-            mMainView = stub.inflate();
-        }
+        viewReference = new WeakReference<>(mRootView);
     }
 
-    public TitleBuilder buildLeftBackTitle(String title, View.OnClickListener onClickListener) {
-        final Activity activity = reference.get();
-        if (activity != null && mMainView != null) {
-            Toolbar toolbar = (Toolbar) mMainView.findViewById(R.id.title_toolbar);
-            toolbar.setNavigationIcon(R.drawable.title_back);
-            if (onClickListener != null) {
-                toolbar.setNavigationOnClickListener(onClickListener);
-            } else {
-                toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        activity.finish();
-                    }
-                });
-            }
+    public TitleBuilder buildTitle(int titleRes){
+        return buildTitle(MapleLeafApplication.getInstance().getString(titleRes));
+    }
 
-            TextView titleText = (TextView) mMainView.findViewById(R.id.title_text);
+    public TitleBuilder buildTitle(CharSequence titleStr){
+        return buildTitle(EMPTY_RESOURCE, titleStr, null);
+    }
+
+    public TitleBuilder buildLeftBackTitle(int titleRes){
+        return buildLeftBackTitle(MapleLeafApplication.getInstance().getString(titleRes));
+    }
+
+    public TitleBuilder buildLeftBackTitle(CharSequence title){
+        return buildTitle(R.drawable.title_back, title, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (reference != null){
+                    reference.get().finish();
+                } else {
+                    ((Activity)viewReference.get().getContext()).finish();
+                }
+            }
+        });
+    }
+
+    public TitleBuilder buildTitle(int leftDrawableRes, CharSequence title, View.OnClickListener onClickListener) {
+        if (reference != null) {
+            final Activity activity = reference.get();
+            Toolbar toolbar = (Toolbar) activity.findViewById(R.id.title_toolbar);
+            setTitleLeft(leftDrawableRes, onClickListener, toolbar);
+            TextView titleText = (TextView) activity.findViewById(R.id.title_text);
+            titleText.setText(title);
+        } else {
+            final View rootView = viewReference.get();
+            Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.title_toolbar);
+            setTitleLeft(leftDrawableRes, onClickListener, toolbar);
+            TextView titleText = (TextView) rootView.findViewById(R.id.title_text);
             titleText.setText(title);
         }
         return this;
+    }
+
+    private void setTitleLeft(int leftDrawableRes, View.OnClickListener onClickListener, Toolbar toolbar) {
+        if (leftDrawableRes > 0){
+            toolbar.setNavigationIcon(leftDrawableRes);
+        }
+        if (onClickListener != null) {
+            toolbar.setNavigationOnClickListener(onClickListener);
+        }
     }
 }

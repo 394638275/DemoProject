@@ -2,7 +2,9 @@ package com.lew.mapleleaf.ui;
 
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,7 @@ import android.view.ViewGroup;
 import com.lew.mapleleaf.ui.module.base.IBasePresenter;
 import com.lew.mapleleaf.ui.module.base.IBaseView;
 import com.lew.mapleleaf.ui.module.main.TitleBuilder;
+import com.lew.mapleleaf.utils.common.ScreenUtils;
 import com.trello.rxlifecycle.LifecycleTransformer;
 import com.trello.rxlifecycle.components.support.RxFragment;
 
@@ -30,8 +33,8 @@ public abstract class BaseFragment<T extends IBasePresenter> extends RxFragment 
             mRootView = inflater.inflate(attachLayoutRes(), container, false);
             ButterKnife.bind(this, mRootView);
             initInjector();
+            initTitle();
             initViews(mRootView);
-            initTitle(mRootView);
         }
         ViewGroup parent = (ViewGroup) mRootView.getParent();
         if (parent != null) {
@@ -40,10 +43,14 @@ public abstract class BaseFragment<T extends IBasePresenter> extends RxFragment 
         return mRootView;
     }
 
+    @Override
+    public void onAttachFragment(Fragment childFragment) {
+        super.onAttachFragment(childFragment);
+    }
+
     @CallSuper
-    private void initTitle(View mRootView) {
+    protected void initTitle() {
         mTitleBuilder = new TitleBuilder(mRootView);
-        mTitleBuilder.buildLeftBackTitle("这是标题", null);
     }
 
     @Override
@@ -76,6 +83,12 @@ public abstract class BaseFragment<T extends IBasePresenter> extends RxFragment 
         }
     }
 
+    protected void setStatusPadding(View view){
+        int statusHeight = ScreenUtils.getStatusHeight(getActivity());
+        view.getLayoutParams().height += statusHeight;
+        view.setPadding(view.getPaddingLeft(), statusHeight, view.getPaddingRight(), view.getPaddingBottom());
+    }
+
     @Override
     public void showLoading() {
 
@@ -106,6 +119,7 @@ public abstract class BaseFragment<T extends IBasePresenter> extends RxFragment 
      *
      * @return 布局文件ID
      */
+    @LayoutRes
     protected abstract int attachLayoutRes();
 
     /**

@@ -18,7 +18,7 @@
             android:title="视频"/>
     </group>
 
-    <group android:checkableBehavior="none">
+    <group android:checkableBehavior="single">
 
         <item
             android:id="@+id/nav_setting"

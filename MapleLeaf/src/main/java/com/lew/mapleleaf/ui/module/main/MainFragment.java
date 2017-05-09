@@ -24,10 +24,19 @@ public class MainFragment extends BaseFragment {
     TabLayout mTabLayout;
     @BindView(R.id.view_pager)
     ViewPager mViewPager;
+    @BindView(R.id.title_toolbar)
+    Toolbar mTitleToolbar;
 
     @Override
     protected int attachLayoutRes() {
         return R.layout.fragment_main_page;
+    }
+
+    @Override
+    protected void initTitle() {
+        super.initTitle();
+        mTitleBuilder.buildTitle(R.string.app_name);
+        setStatusPadding(mTitleToolbar);
     }
 
     @Override

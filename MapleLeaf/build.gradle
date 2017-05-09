@@ -53,9 +53,25 @@ android {
     }
     productFlavors {
         dev{
+            // 每个环境包名不同
+            applicationId rootProject.ext.packageNameDebug
+
+            // 动态添加 string.xml 字段；
+            // 注意，这里是添加，在 string.xml 不能有这个字段，会重名！！！
+            resValue "string", "app_name", "meapleLeaf"
+//            resValue "bool", "isrRank", 'false'
+            // 动态修改 常量 字段
+//            buildConfigField "String", "ENVIRONMENT", '"dev"'
+            // 修改 AndroidManifest.xml 里渠道变量
+//            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "dev"]
+
             minSdkVersion 21    //仅开发用，优化编译速度（instance run）
         }
-//        Baidu {}
+
+        Baidu {
+            applicationId rootProject.ext.packageName
+            resValue "string", "app_name", "枫林"
+        }
 //        pgy {}
 //        xiaomi {}
 //        _360 {}
@@ -74,12 +90,12 @@ android {
         variant.outputs.each { output ->
             def outputFile = output.outputFile
             if (outputFile != null && outputFile.name.endsWith('.apk')) {
-                if (variant.buildType.name.equals('release')){
+                if ('release'.equals(variant.buildType.name)){
                     //这里修改apk文件名
                     def fileName = "MapleLeaf-${defaultConfig.versionName}(${defaultConfig.versionCode})-${variant.productFlavors[0].name}-${releaseTime()}-release.apk"
                     output.outputFile = new File(outputFile.parent, fileName)
                 }
-                if (variant.buildType.name.equals('debug')){
+                if ('debug'.equals(variant.buildType.name)){
                     def fileName = "MapleLeaf-${defaultConfig.versionName}(${defaultConfig.versionCode})-${variant.productFlavors[0].name}-${releaseTime()}-debug.apk"
                     output.outputFile = new File(outputFile.parent, fileName)
                 }
