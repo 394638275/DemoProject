@@ -1,9 +1,11 @@
 package com.lew.mapleleaf.ui.module.dagger;
 
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.lew.mapleleaf.R;
 import com.lew.mapleleaf.ui.BaseActivity;
+import com.lew.mapleleaf.ui.module.title.DefaultNavigation;
 
 import javax.inject.Inject;
 
@@ -24,7 +26,11 @@ public class DaggerActivity extends BaseActivity {
     @Override
     protected void initTitle() {
         super.initTitle();
-        mTitleBuilder.buildLeftBackTitle("Dagger Activity");
+//        mTitleBuilder.buildLeftBackTitle("Dagger Activity");
+
+        DefaultNavigation navigation = new DefaultNavigation.Builder(this, (ViewGroup) findViewById(R.id.title_container))
+                .setTitle("这是标题").setLeft("这是返回").create();
+
     }
 
     @Override
