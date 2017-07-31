@@ -17,6 +17,7 @@ import com.trello.rxlifecycle.LifecycleTransformer;
 import com.trello.rxlifecycle.components.support.RxFragment;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 public abstract class BaseFragment<T extends IBasePresenter> extends RxFragment implements IBaseView {
 
@@ -25,13 +26,14 @@ public abstract class BaseFragment<T extends IBasePresenter> extends RxFragment 
     private boolean mIsMulti = false;
     protected View mRootView;
     protected TitleBuilder mTitleBuilder;
+    private Unbinder mUnbinder;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (mRootView == null) {
             mRootView = inflater.inflate(attachLayoutRes(), container, false);
-            ButterKnife.bind(this, mRootView);
+            mUnbinder = ButterKnife.bind(this, mRootView);
             initInjector();
             initTitle();
             initViews(mRootView);
@@ -62,6 +64,7 @@ public abstract class BaseFragment<T extends IBasePresenter> extends RxFragment 
                 parent.removeView(mRootView);
             }
         }
+        mUnbinder.unbind();
     }
 
     @Override

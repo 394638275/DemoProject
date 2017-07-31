@@ -374,7 +374,6 @@ public class DateUtil {
         return (int) (t / 1000 - t1 / 1000) / 3600 / 24;
     }
 
-
     /**
      * 使用用户格式提取字符串日期
      *
@@ -391,7 +390,6 @@ public class DateUtil {
             return null;
         }
     }
-
 
     /**
      * 按用户格式字符串距离今天的天数

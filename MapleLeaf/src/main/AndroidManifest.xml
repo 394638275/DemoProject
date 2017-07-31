@@ -31,6 +31,9 @@
 
         <activity android:name=".ui.module.dagger.DaggerActivity"/>
 
+        <service android:name=".ui.module.service.LocalService" />
+
+        <service android:name=".ui.module.service.RemoteService"/>
     </application>
 
 </manifest>

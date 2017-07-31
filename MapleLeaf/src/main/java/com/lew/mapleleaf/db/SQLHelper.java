@@ -3,7 +3,6 @@ package com.lew.mapleleaf.db;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.os.Handler;
 
 public class SQLHelper extends SQLiteOpenHelper {
 	public static final String DB_NAME = "database.db";// 数据库名称

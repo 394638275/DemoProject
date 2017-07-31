@@ -1,6 +1,7 @@
 package com.lew.mapleleaf.ui;
 
 import android.app.Application;
+import android.os.StrictMode;
 
 import com.lew.mapleleaf.BuildConfig;
 import com.lew.mapleleaf.db.SQLHelper;
@@ -19,6 +20,31 @@ public class MapleLeafApplication extends Application {
         LeakCanary.install(this);   //内存泄露检查
         AppIntroUtil.getInstance().markOpenApp(this);   //记录app是否初次启动
         initLogger();
+        setStrictMode();
+    }
+
+    private void setStrictMode() {
+//        if (BuildConfig.DEBUG) {
+            StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+//                    .detectDiskReads()
+//                    .detectDiskWrites()
+//                    .detectNetwork()// or .detectAll() for all detectable problems
+//                    .detectCustomSlowCalls()
+//                    .detectResourceMismatches()
+                    .detectAll()
+                    .penaltyFlashScreen()
+                    .penaltyDialog()
+                    .penaltyLog()
+                    .build());
+            StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+                    .detectLeakedSqlLiteObjects()
+                    .detectLeakedClosableObjects()
+                    .detectLeakedRegistrationObjects()
+                    .detectActivityLeaks()
+                    .penaltyLog()
+                    .penaltyDeath()
+                    .build());
+//        }
     }
 
     /**

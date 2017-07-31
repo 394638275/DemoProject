@@ -6,6 +6,8 @@ import android.widget.TextView;
 import com.lew.mapleleaf.R;
 import com.lew.mapleleaf.ui.BaseActivity;
 import com.lew.mapleleaf.ui.module.title.DefaultNavigation;
+import com.lew.mapleleaf.utils.logger.Logger;
+import com.lew.mapleleaf.utils.math.Fibonacci;
 
 import javax.inject.Inject;
 
