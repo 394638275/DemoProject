@@ -10,7 +10,7 @@ public class SQLHelper extends SQLiteOpenHelper {
 
 	public static final String TABLE_CHANNEL = "channel";// 数据表
 
-	public static final String ID = "id";//
+	public static final String ID = "id";
 	public static final String NAME = "name";
 	public static final String ORDERID = "orderId";
 	public static final String SELECTED = "selected";

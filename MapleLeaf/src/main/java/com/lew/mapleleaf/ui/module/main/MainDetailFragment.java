@@ -2,17 +2,15 @@ package com.lew.mapleleaf.ui.module.main;
 
 import android.os.Bundle;
 import android.os.Environment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.lew.mapleleaf.R;
+import com.lew.mapleleaf.network.RetrofitService;
 import com.lew.mapleleaf.ui.BaseFragment;
 import com.lew.mapleleaf.utils.app.Colors;
 import com.lew.mapleleaf.utils.logger.Logger;
-import com.lew.mapleleaf.utils.math.Fibonacci;
 import com.lew.mapleleaf.utils.rx.RxHelper;
 
 import java.io.File;
@@ -22,9 +20,12 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import rx.Subscriber;
 
 /**
@@ -40,6 +41,8 @@ public class MainDetailFragment extends BaseFragment {
     TextView mFragmentContent;
     @BindView(R.id.btn_start)
     Button mStart;
+
+    RetrofitService service;
 
     public static MainDetailFragment newInstance(int index) {
         Bundle args = new Bundle();
@@ -67,6 +70,17 @@ public class MainDetailFragment extends BaseFragment {
     @SuppressWarnings("unchecked")
     @Override
     protected void lazyLoadData(boolean isRefresh) {
+
+//        Retrofit retrofit = new Retrofit.Builder()  //01:获取Retrofit对象
+//                .baseUrl("http://localhost:8080/HelloWorld/") //02采用链式结构绑定Base url
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+//                // 针对rxjava2.x
+//                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+//                .build();
+//
+//        service = retrofit.create(RetrofitService.class);//04获取API接口的实现类的实例对象
+
         RxHelper.countdown(3)
                 .compose(this.<Integer>bindToLife())
                 .subscribe(new Subscriber<Integer>() {
@@ -94,10 +108,31 @@ public class MainDetailFragment extends BaseFragment {
     }
 
     @OnClick(R.id.btn_start)
-    public void OnClick(View view){
-        switch (view.getId()){
+    public void OnClick(View view) {
+        switch (view.getId()) {
             case R.id.btn_start:
-                writeToExternalStorage();
+//                writeToExternalStorage();
+                //创建okHttpClient对象
+                OkHttpClient mOkHttpClient = new OkHttpClient();
+                //创建一个Request
+                final Request request = new Request.Builder()
+                        .url("http://192.168.1.106:8080/HelloWorld/servlet/MyServlet")
+                        .build();
+                //new call
+                Call call = mOkHttpClient.newCall(request);
+                //请求加入调度
+                call.enqueue(new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        Logger.d(response.body().string());
+                    }
+                });
+
                 break;
         }
     }
