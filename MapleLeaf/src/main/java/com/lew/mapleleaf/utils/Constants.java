@@ -5,8 +5,8 @@ import android.os.Environment;
 
 public final class Constants {
 	
-	public static final int HTTP_CONN_TIME_OUT = 60000; // HTTP 连接超时时间
-	public static final int HTTP_READ_TIME_OUT = 60000; // HTTP 读取数据超时时间
+	public static final int HTTP_CONN_TIME_OUT = 8000; // HTTP 连接超时时间
+	public static final int HTTP_READ_TIME_OUT = 8000; // HTTP 读取数据超时时间
 
 	public static final class URL {
 

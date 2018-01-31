@@ -3,10 +3,14 @@
 buildscript {
     repositories {
         jcenter()
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.3'
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+        classpath 'com.android.tools.build:gradle:3.0.1'
+//        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -16,6 +20,7 @@ allprojects {
     repositories {
         jcenter()
         mavenCentral()
+        google()
     }
 }
 
@@ -29,12 +34,22 @@ ext {
     targetSdk = 25
     // 用了25.1.1发现专题界面的浮标按钮没有动画效果了。改回25.0.1
     // support = "25.1.1"
-    support = "25.3.1"
-    buildTools = "25.0.3"
+    support = "25.4.0"
+    buildTools = "26.0.2"
 
     versionCode = 1
     versionName = "v1.0.1"
 
     packageName = "com.lew.mapleleaf"
     packageNameDebug = "com.lew.mapleleaf.dev"
+
+    leakcanary = "1.5.1"
+    gson = "2.8.0"
+    butterKnife = "8.4.0"
+    rxbinding = "0.4.0"
+    rxlifecycle = "1.0"
+    rxpermissions = "0.9.1@aar"
+    dagger = "2.10"
+    retrofit = "2.3.0"
+    converter = "2.0.2"
 }
