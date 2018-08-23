@@ -7,7 +7,6 @@ static def releaseTime() {
 
 android {
     compileSdkVersion rootProject.ext.compileSdk
-    buildToolsVersion rootProject.ext.buildTools
 
     defaultConfig {
         applicationId rootProject.ext.packageName
@@ -94,48 +93,49 @@ android {
             outputFileName = "MapleLeaf_${variant.productFlavors[0].name}_${variant.versionName}(${variant.versionCode})_${releaseTime()}_${variant.buildType.name}.apk"
         }
     }
+    buildToolsVersion '27.0.3'
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
 
 //    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
 //        exclude group: 'com.android.support', module: 'support-annotations'
 //        exclude group: 'com.google.code.findbugs'
 //    })
 
-    testCompile 'junit:junit:4.12'
-    androidTestCompile "com.android.support:support-annotations:${rootProject.ext.support}"
-    androidTestCompile 'com.android.support.test:runner:1.0.1'
-    androidTestCompile 'com.android.support.test:rules:1.0.1'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation "com.android.support:support-annotations:${rootProject.ext.support}"
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test:rules:1.0.1'
     // Optional -- Mockito framework
-    testCompile 'org.mockito:mockito-core:1.10.19'
+    testImplementation 'org.mockito:mockito-core:1.10.19'
 
-    debugCompile "com.squareup.leakcanary:leakcanary-android:${rootProject.ext.leakcanary}"
-    releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:${rootProject.ext.leakcanary}"
-    testCompile "com.squareup.leakcanary:leakcanary-android-no-op:${rootProject.ext.leakcanary}"
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:${rootProject.ext.leakcanary}"
+    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:${rootProject.ext.leakcanary}"
+    testImplementation "com.squareup.leakcanary:leakcanary-android-no-op:${rootProject.ext.leakcanary}"
     // support lib
-    compile "com.android.support:appcompat-v7:${rootProject.ext.support}"
-    compile "com.android.support:recyclerview-v7:${rootProject.ext.support}"
-    compile "com.android.support:cardview-v7:${rootProject.ext.support}"
-    compile "com.android.support:support-v4:${rootProject.ext.support}"
-    compile "com.android.support:design:${rootProject.ext.support}"
-    compile 'me.leolin:ShortcutBadger:1.1.4@aar'
-    compile "com.google.code.gson:gson:${rootProject.ext.gson}"
+    implementation "com.android.support:appcompat-v7:${rootProject.ext.support}"
+    implementation "com.android.support:recyclerview-v7:${rootProject.ext.support}"
+    implementation "com.android.support:cardview-v7:${rootProject.ext.support}"
+    implementation "com.android.support:support-v4:${rootProject.ext.support}"
+    implementation "com.android.support:design:${rootProject.ext.support}"
+    implementation 'me.leolin:ShortcutBadger:1.1.4@aar'
+    implementation "com.google.code.gson:gson:${rootProject.ext.gson}"
     // butterknife
     annotationProcessor "com.jakewharton:butterknife-compiler:${rootProject.ext.butterKnife}"
-    compile "com.jakewharton:butterknife:${rootProject.ext.butterKnife}"
+    implementation "com.jakewharton:butterknife:${rootProject.ext.butterKnife}"
     // rxjava
-    compile "com.jakewharton.rxbinding:rxbinding:${rootProject.ext.rxbinding}"
-    compile "com.trello:rxlifecycle:${rootProject.ext.rxlifecycle}"
-    compile "com.trello:rxlifecycle-components:${rootProject.ext.rxlifecycle}"
-    compile "com.tbruyelle.rxpermissions:rxpermissions:${rootProject.ext.rxpermissions}"
+    implementation "com.jakewharton.rxbinding:rxbinding:${rootProject.ext.rxbinding}"
+    implementation "com.trello:rxlifecycle:${rootProject.ext.rxlifecycle}"
+    implementation "com.trello:rxlifecycle-components:${rootProject.ext.rxlifecycle}"
+    implementation "com.tbruyelle.rxpermissions:rxpermissions:${rootProject.ext.rxpermissions}"
     // dagger
     annotationProcessor "com.google.dagger:dagger-compiler:${rootProject.ext.dagger}"
-    compile "com.google.dagger:dagger:${rootProject.ext.dagger}"
+    implementation "com.google.dagger:dagger:${rootProject.ext.dagger}"
 
-    compile "com.squareup.retrofit2:retrofit:${rootProject.ext.retrofit}"
-    compile "com.squareup.retrofit2:converter-gson:${rootProject.ext.converter}"
-    compile "com.squareup.retrofit2:adapter-rxjava:${rootProject.ext.converter}"
+    implementation "com.squareup.retrofit2:retrofit:${rootProject.ext.retrofit}"
+    implementation "com.squareup.retrofit2:converter-gson:${rootProject.ext.converter}"
+    implementation "com.squareup.retrofit2:adapter-rxjava:${rootProject.ext.converter}"
 
 }

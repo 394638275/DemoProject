@@ -1,5 +1,6 @@
 package com.lew.mapleleaf.ui.module.dagger;
 
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -31,8 +32,12 @@ public class DaggerActivity extends BaseActivity {
 //        mTitleBuilder.buildLeftBackTitle("Dagger Activity");
 
         DefaultNavigation navigation = new DefaultNavigation.Builder(this, (ViewGroup) findViewById(R.id.title_container))
-                .setTitle("这是标题").setLeft("这是返回").create();
-
+                .setTitle("这是标题").setLeft("这是返回").setLeftOnclickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        finish();
+                    }
+                }).create();
     }
 
     @Override

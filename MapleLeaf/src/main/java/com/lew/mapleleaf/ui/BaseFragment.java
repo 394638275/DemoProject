@@ -64,7 +64,9 @@ public abstract class BaseFragment<T extends IBasePresenter> extends RxFragment 
                 parent.removeView(mRootView);
             }
         }
-        mUnbinder.unbind();
+        if (mUnbinder != null) {
+            mUnbinder.unbind();
+        }
     }
 
     @Override

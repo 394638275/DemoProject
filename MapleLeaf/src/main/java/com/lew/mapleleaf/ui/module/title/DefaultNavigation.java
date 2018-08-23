@@ -25,6 +25,9 @@ public class DefaultNavigation<D extends AbsNavigationBar.Builder.NavigationPara
         setText(R.id.tv_title_center, getParams().title);
         setText(R.id.tv_title_left, getParams().titleLeft);
         setText(R.id.tv_title_right,getParams().titleRight);
+
+        setOnclickListener(R.id.tv_title_left, getParams().leftOnclickListener);
+        setOnclickListener(R.id.tv_title_right, getParams().rightOnclickListener);
     }
 
     public static class Builder extends AbsNavigationBar.Builder{

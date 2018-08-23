@@ -56,7 +56,7 @@ public abstract class BaseActivity<T extends IBasePresenter> extends RxAppCompat
             mToolbar.getLayoutParams().height += statusHeight;
             mToolbar.setPadding(mToolbar.getPaddingLeft(), statusHeight, mToolbar.getPaddingRight(), mToolbar.getPaddingBottom());
         } else {
-            Logger.e(TAG, "need a title ? can not find a toolbar with id: toolbar_title");
+            Logger.e(TAG, "need a title ? can not find a toolbar with id: title_toolbar");
         }
     }
 
