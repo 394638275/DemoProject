@@ -7,6 +7,7 @@ static def releaseTime() {
 
 android {
     compileSdkVersion rootProject.ext.compileSdk
+    buildToolsVersion rootProject.ext.buildTools
 
     defaultConfig {
         applicationId rootProject.ext.packageName
@@ -93,7 +94,6 @@ android {
             outputFileName = "MapleLeaf_${variant.productFlavors[0].name}_${variant.versionName}(${variant.versionCode})_${releaseTime()}_${variant.buildType.name}.apk"
         }
     }
-    buildToolsVersion '27.0.3'
 }
 
 dependencies {
@@ -106,8 +106,8 @@ dependencies {
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation "com.android.support:support-annotations:${rootProject.ext.support}"
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test:rules:1.0.1'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test:rules:1.0.2'
     // Optional -- Mockito framework
     testImplementation 'org.mockito:mockito-core:1.10.19'
 

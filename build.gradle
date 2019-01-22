@@ -2,6 +2,7 @@
 
 buildscript {
     repositories {
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
         jcenter()
         maven {
             url 'https://maven.google.com/'
@@ -10,7 +11,7 @@ buildscript {
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.4'
+        classpath 'com.android.tools.build:gradle:3.3.0'
 //        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -19,6 +20,7 @@ buildscript {
 
 allprojects {
     repositories {
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
         jcenter()
         mavenCentral()
         google()
@@ -30,23 +32,21 @@ task clean(type: Delete) {
 }
 
 ext {
-    compileSdk = 27
-    minSdk = 21
-    targetSdk = 27
-    // 用了25.1.1发现专题界面的浮标按钮没有动画效果了。改回25.0.1
-    // support = "25.1.1"
-    support = "27.1.1"
-    buildTools = "27.0.1"
-
     versionCode = 1
     versionName = "v1.0.1"
 
     packageName = "com.lew.mapleleaf"
     packageNameDebug = "com.lew.mapleleaf.dev"
 
+    minSdk = 21
+    targetSdk = 28
+    compileSdk = 28
+    buildTools = "28.0.3"
+    support = "28.0.0"
+
     leakcanary = "1.5.4"
     gson = "2.8.0"
-    butterKnife = "8.4.0"
+    butterKnife = "8.8.1"
     rxbinding = "0.4.0"
     rxlifecycle = "1.0"
     rxpermissions = "0.9.1@aar"

@@ -3,6 +3,7 @@ package com.lew.mapleleaf.ui;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -28,9 +29,8 @@ public abstract class BaseFragment<T extends IBasePresenter> extends RxFragment 
     protected TitleBuilder mTitleBuilder;
     private Unbinder mUnbinder;
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (mRootView == null) {
             mRootView = inflater.inflate(attachLayoutRes(), container, false);
             mUnbinder = ButterKnife.bind(this, mRootView);
@@ -66,6 +66,7 @@ public abstract class BaseFragment<T extends IBasePresenter> extends RxFragment 
         }
         if (mUnbinder != null) {
             mUnbinder.unbind();
+            mUnbinder = null;
         }
     }
 
