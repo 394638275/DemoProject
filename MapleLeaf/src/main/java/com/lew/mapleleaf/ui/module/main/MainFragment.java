@@ -10,9 +10,7 @@ import android.util.SparseArray;
 import android.view.View;
 
 import com.lew.mapleleaf.R;
-import com.lew.mapleleaf.ui.BaseFragment;
-
-import butterknife.BindView;
+import com.lew.mapleleaf.base.BaseFragment;
 
 /**
  * Created by Richie 2017/4/10.
@@ -20,40 +18,21 @@ import butterknife.BindView;
 
 public class MainFragment extends BaseFragment {
 
-    @BindView(R.id.tab_layout)
-    TabLayout mTabLayout;
-    @BindView(R.id.view_pager)
-    ViewPager mViewPager;
-    @BindView(R.id.title_toolbar)
-    Toolbar mTitleToolbar;
+    @Override
+    protected void initView() {
+
+    }
 
     @Override
-    protected int attachLayoutRes() {
+    protected int getLayoutResId() {
         return R.layout.fragment_main_page;
-    }
-
-    @Override
-    protected void initTitle() {
-        super.initTitle();
-        mTitleBuilder.buildTitle(R.string.app_name);
-        setStatusPadding(mTitleToolbar);
-    }
-
-    @Override
-    protected void initInjector() {
-
-    }
-
-    @Override
-    protected void initViews(View rootView) {
-
     }
 
     @Override
     protected void lazyLoadData(boolean isRefresh) {
         MainPager pager = new MainPager(getChildFragmentManager());
-        mViewPager.setAdapter(pager);
-        mTabLayout.setupWithViewPager(mViewPager);
+//        mViewPager.setAdapter(pager);
+//        mTabLayout.setupWithViewPager(mViewPager);
     }
 
     private class MainPager extends FragmentStatePagerAdapter {

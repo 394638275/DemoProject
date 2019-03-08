@@ -25,25 +25,25 @@ public class MapleLeafApplication extends Application {
 
     private void setStrictMode() {
 //        if (BuildConfig.DEBUG) {
-            StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
 //                    .detectDiskReads()
 //                    .detectDiskWrites()
 //                    .detectNetwork()// or .detectAll() for all detectable problems
 //                    .detectCustomSlowCalls()
 //                    .detectResourceMismatches()
-                    .detectAll()
-                    .penaltyFlashScreen()
-                    .penaltyDialog()
-                    .penaltyLog()
-                    .build());
-            StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
-                    .detectLeakedSqlLiteObjects()
-                    .detectLeakedClosableObjects()
-                    .detectLeakedRegistrationObjects()
-                    .detectActivityLeaks()
-                    .penaltyLog()
-                    .penaltyDeath()
-                    .build());
+                .detectAll()
+                .penaltyFlashScreen()
+                .penaltyDialog()
+                .penaltyLog()
+                .build());
+        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+                .detectLeakedSqlLiteObjects()
+                .detectLeakedClosableObjects()
+                .detectLeakedRegistrationObjects()
+                .detectActivityLeaks()
+                .penaltyLog()
+                .penaltyDeath()
+                .build());
 //        }
     }
 
@@ -51,7 +51,7 @@ public class MapleLeafApplication extends Application {
      * 初始化日志工具
      */
     private void initLogger() {
-        Logger.init().setLogLevel(BuildConfig.LOG_DEBUG ? Logger.LogLevel.FULL : Logger.LogLevel.NONE);
+        Logger.init().setLogLevel(BuildConfig.DEBUG ? Logger.LogLevel.FULL : Logger.LogLevel.NONE);
     }
 
     /**

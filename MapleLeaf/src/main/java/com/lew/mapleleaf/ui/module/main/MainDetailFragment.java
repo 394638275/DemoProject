@@ -3,15 +3,12 @@ package com.lew.mapleleaf.ui.module.main;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.lew.mapleleaf.R;
+import com.lew.mapleleaf.base.BaseFragment;
 import com.lew.mapleleaf.network.RetrofitService;
-import com.lew.mapleleaf.ui.BaseFragment;
 import com.lew.mapleleaf.utils.app.Colors;
 import com.lew.mapleleaf.utils.logger.Logger;
-import com.lew.mapleleaf.utils.rx.RxHelper;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -19,14 +16,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import butterknife.BindView;
-import butterknife.OnClick;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import rx.Subscriber;
 
 /**
  * Created by Richie 2017/4/10.
@@ -36,11 +30,6 @@ public class MainDetailFragment extends BaseFragment {
 
     private static final String INDEX = "index";
     private static final int[] colors = {Colors.FUCHSIA_TRANSLUCENT, Colors.BLUE_TRANSLUCENT, Colors.CHOCOLATE_TRANSLUCENT};
-
-    @BindView(R.id.tv_fragment_content)
-    TextView mFragmentContent;
-    @BindView(R.id.btn_start)
-    Button mStart;
 
     RetrofitService service;
 
@@ -53,19 +42,29 @@ public class MainDetailFragment extends BaseFragment {
     }
 
     @Override
-    protected int attachLayoutRes() {
+    protected void initView() {
+
+    }
+
+    @Override
+    protected int getLayoutResId() {
         return R.layout.fragment_main_detail;
     }
 
-    @Override
-    protected void initInjector() {
-
-    }
-
-    @Override
-    protected void initViews(View rootView) {
-
-    }
+    //    @Override
+//    protected int attachLayoutRes() {
+//        return R.layout.fragment_main_detail;
+//    }
+//
+//    @Override
+//    protected void initInjector() {
+//
+//    }
+//
+//    @Override
+//    protected void initViews(View rootView) {
+//
+//    }
 
     @SuppressWarnings("unchecked")
     @Override
@@ -81,33 +80,31 @@ public class MainDetailFragment extends BaseFragment {
 //
 //        service = retrofit.create(RetrofitService.class);//04获取API接口的实现类的实例对象
 
-        RxHelper.countdown(3)
-                .compose(this.<Integer>bindToLife())
-                .subscribe(new Subscriber<Integer>() {
-                    @Override
-                    public void onCompleted() {
-                        showPageContent();
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        showPageContent();
-                    }
-
-                    @Override
-                    public void onNext(Integer integer) {
-                        Logger.d(integer + "");
-                    }
-                });
+//        RxHelper.countdown(3)
+//                .subscribe(new Subscriber<Integer>() {
+//                    @Override
+//                    public void onCompleted() {
+//                        showPageContent();
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//                        showPageContent();
+//                    }
+//
+//                    @Override
+//                    public void onNext(Integer integer) {
+//                        Logger.d(integer + "");
+//                    }
+//                });
     }
 
     private void showPageContent() {
         int index = getArguments().getInt(INDEX, 0);
         Logger.d(index + "");
-        mFragmentContent.setText("这是第 " + index + " 页 ");
+//        mFragmentContent.setText("这是第 " + index + " 页 ");
     }
 
-    @OnClick(R.id.btn_start)
     public void OnClick(View view) {
         switch (view.getId()) {
             case R.id.btn_start:

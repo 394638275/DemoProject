@@ -3,57 +3,46 @@
     <!-- disable -->
     <item android:state_enabled="true" android:state_pressed="true">
         <shape android:shape="rectangle">
-            <size
-                android:width="70dp"
-                android:height="26dp"/>
-            <solid android:color="@color/transparent_50"/>
+            <size android:width="70dp" android:height="26dp" />
+            <solid android:color="@color/transparent_50_white" />
 
-            <corners android:radius="13dp"/>
+            <corners android:radius="13dp" />
 
-            <stroke android:width="@dimen/public_divider_line_size"
-                    android:color="@color/public_divider_color"/>
+            <stroke android:width="@dimen/public_divider_line_size" android:color="@color/public_divider_color" />
         </shape>
     </item>
 
     <item android:state_checked="true" android:state_enabled="true">
         <shape android:shape="rectangle">
-            <size
-                android:width="70dp"
-                android:height="26dp"/>
-            <solid android:color="@color/transparent_50"/>
+            <size android:width="70dp" android:height="26dp" />
+            <solid android:color="@color/transparent_50_white" />
 
-            <corners android:radius="13dp"/>
+            <corners android:radius="13dp" />
 
-            <stroke android:width="@dimen/public_divider_line_size"
-                    android:color="@color/public_divider_color"/>
+            <stroke android:width="@dimen/public_divider_line_size" android:color="@color/public_divider_color" />
         </shape>
     </item>
 
     <item android:state_enabled="true" android:state_focused="true">
         <shape android:shape="rectangle">
-            <size
-                android:width="70dp"
-                android:height="26dp"/>
-            <solid android:color="@color/transparent_50"/>
+            <size android:width="70dp" android:height="26dp" />
+            <solid android:color="@color/transparent_50_white" />
 
-            <corners android:radius="13dp"/>
+            <corners android:radius="13dp" />
 
-            <stroke android:width="@dimen/public_divider_line_size"
-                    android:color="@color/public_divider_color"/>
+            <stroke android:width="@dimen/public_divider_line_size" android:color="@color/public_divider_color" />
         </shape>
     </item>
 
     <item android:state_enabled="true">
         <shape android:shape="rectangle">
-            <size android:width="70dp"
-                  android:height="26dp"/>
+            <size android:width="70dp" android:height="26dp" />
 
-            <corners android:radius="13dp"/>
+            <corners android:radius="13dp" />
 
-            <solid android:color="@color/transparent_80"/>
+            <solid android:color="@color/transparent_80_white" />
 
-            <stroke android:width="@dimen/public_divider_line_size"
-                    android:color="@color/public_divider_color"/>
+            <stroke android:width="@dimen/public_divider_line_size" android:color="@color/public_divider_color" />
         </shape>
     </item>
 </selector>

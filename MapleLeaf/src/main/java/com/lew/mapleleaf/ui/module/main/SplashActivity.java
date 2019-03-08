@@ -1,40 +1,20 @@
 package com.lew.mapleleaf.ui.module.main;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.TextView;
 
 import com.lew.mapleleaf.R;
+import com.lew.mapleleaf.databinding.ActivityStartUpBinding;
 import com.lew.mapleleaf.ui.BaseActivity;
-import com.lew.mapleleaf.utils.rx.RxHelper;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import rx.Subscriber;
+import com.lew.mapleleaf.ui.module.splash.SplashContract;
 
 /**
  * Created by richie 2016/3/31.
  */
-public class SplashActivity extends BaseActivity {
-
-    @BindView(R.id.tv_count_down_seconds)
-    TextView mCountDownSeconds;
+public class SplashActivity extends BaseActivity<SplashPresenter, ActivityStartUpBinding> implements SplashContract.View {
 
     @Override
-    protected int attachLayoutRes() {
+    protected int getLayoutId() {
         return R.layout.activity_start_up;
-    }
-
-    @Override
-    protected void initInjector() {
-
-    }
-
-    @Override
-    protected void initViews() {
-
     }
 
     @Override
@@ -42,36 +22,15 @@ public class SplashActivity extends BaseActivity {
 
     }
 
-    @SuppressWarnings("unchecked")
     @Override
-    protected void updateViews(boolean isRefresh) {
-        RxHelper.countdown(2)
-                .compose(this.<Integer>bindToLife())
-                .subscribe(new Subscriber<Integer>() {
-                    @Override
-                    public void onCompleted() {
-                        doSkip();
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        doSkip();
-                    }
-
-                    @Override
-                    public void onNext(Integer integer) {
-                        mCountDownSeconds.setText(String.format(getString(R.string.skip_in_seconds), integer));
-                    }
-                });
+    public void setCountDown(Integer integer) {
+        mViewBinding.tvCountDownSeconds.setText(integer + "秒");
     }
 
-    private void doSkip() {
-        startActivity(new Intent(this, MainActivity.class));
+    @Override
+    public void doSkip() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
         finish();
-    }
-
-    @OnClick(R.id.tv_count_down_seconds)
-    public void OnClick(View view){
-        doSkip();
     }
 }

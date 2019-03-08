@@ -2,16 +2,21 @@
 
 buildscript {
     repositories {
+        mavenCentral()
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
-        jcenter()
         maven {
             url 'https://maven.google.com/'
             name 'Google'
         }
+        maven {
+            url uri('repo')
+        }
+        jcenter()
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.3.1'
+        classpath 'com.android.tools.build:gradle:3.3.2'
+        classpath 'com.mapleleaf.plugins:plugins:1.0.0'
 //        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -20,9 +25,14 @@ buildscript {
 
 allprojects {
     repositories {
-        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
-        jcenter()
         mavenCentral()
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url 'https://jitpack.io' }
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
+        jcenter()
         google()
     }
 }
@@ -46,11 +56,13 @@ ext {
 
     leakcanary = "1.5.4"
     gson = "2.8.0"
-    butterKnife = "8.8.1"
-    rxbinding = "0.4.0"
-    rxlifecycle = "1.0"
-    rxpermissions = "0.9.1@aar"
+    rxjava = '2.2.4'
+    rxandroid = '2.1.0'
+//    butterKnife = "8.8.1"
+//    rxbinding = "0.4.0"
+//    rxlifecycle = "1.0"
+//    rxpermissions = "0.9.1@aar"
     dagger = "2.10"
-    retrofit = "2.3.0"
+    retrofit = "2.2.0"
     converter = "2.0.2"
 }

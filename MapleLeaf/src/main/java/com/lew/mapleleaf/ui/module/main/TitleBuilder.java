@@ -13,7 +13,6 @@ import java.lang.ref.WeakReference;
 /**
  * Created by Richie 2017/4/27.
  */
-
 public class TitleBuilder {
     private static final int EMPTY_RESOURCE = -1;
     private WeakReference<Activity> reference;
