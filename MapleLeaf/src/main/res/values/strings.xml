@@ -15,6 +15,7 @@
     <string name="loading_message">正在加载....</string>
     <string name="skip_in_seconds">跳过 %1$d</string>
     <string name="shadow_image">阴影</string>
+    <string name="second_count">%1d秒</string>
 
 
 </resources>

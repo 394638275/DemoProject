@@ -24,7 +24,7 @@ public class SplashActivity extends BaseActivity<SplashPresenter, ActivityStartU
 
     @Override
     public void setCountDown(Integer integer) {
-        mViewBinding.tvCountDownSeconds.setText(integer + "秒");
+        mViewBinding.tvCountDownSeconds.setText(String.format(getResources().getString(R.string.second_count), integer));
     }
 
     @Override
