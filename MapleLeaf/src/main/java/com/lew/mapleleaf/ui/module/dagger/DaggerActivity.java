@@ -40,7 +40,7 @@ public class DaggerActivity extends BaseActivity {
 //    }
 
     @Override
-    protected void initData() {
+    protected void initView() {
 
     }
 }

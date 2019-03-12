@@ -2,6 +2,8 @@ package com.lew.mapleleaf.base;
 
 import android.databinding.ViewDataBinding;
 
+import com.lew.mapleleaf.utils.InstanceUtil;
+
 import java.lang.reflect.ParameterizedType;
 
 /**
@@ -17,7 +19,7 @@ public abstract class BaseFragment<P extends BasePresenter, B extends ViewDataBi
         if (this instanceof BaseView && this.getClass().getGenericSuperclass() instanceof ParameterizedType &&
                 ((ParameterizedType) (this.getClass().getGenericSuperclass())).getActualTypeArguments().length > 0) {
             Class mPresenterClass = (Class) ((ParameterizedType) (this.getClass().getGenericSuperclass())).getActualTypeArguments()[0];
-//            mPresenter = InstanceUtil.getInstance(mPresenterClass);
+            mPresenter = InstanceUtil.getInstance(mPresenterClass);
             if (mPresenter != null) mPresenter.setView(this);
         }
     }

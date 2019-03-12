@@ -22,6 +22,7 @@ public abstract class BaseActivity<T extends BasePresenter, B extends ViewDataBi
 
     protected T mPresenter;
 
+    @SuppressWarnings("unchecked")
     @Override
     protected void initPresenter() {
         if (this instanceof BaseView && this.getClass().getGenericSuperclass() instanceof ParameterizedType && ((ParameterizedType) (this.getClass().getGenericSuperclass())).getActualTypeArguments().length > 0) {

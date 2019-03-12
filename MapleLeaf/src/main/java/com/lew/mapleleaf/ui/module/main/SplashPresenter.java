@@ -2,11 +2,10 @@ package com.lew.mapleleaf.ui.module.main;
 
 import com.app.annotations.apt.InstanceFactory;
 import com.lew.mapleleaf.ui.module.splash.SplashContract;
+import com.lew.mapleleaf.utils.logger.Logger;
 import com.lew.mapleleaf.utils.rx.RxHelper;
 
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Action;
-import io.reactivex.functions.Consumer;
 
 /**
  * author: LQ
@@ -22,22 +21,11 @@ public class SplashPresenter extends SplashContract.Presenter {
 
     @Override
     public void startCountDown() {
-        Disposable subscribe = RxHelper.countdown(2).subscribe(new Consumer<Integer>() {
-            @Override
-            public void accept(Integer integer) {
-                mView.setCountDown(integer);
-            }
-        }, new Consumer<Throwable>() {
-            @Override
-            public void accept(Throwable throwable) throws Exception {
-
-            }
-        }, new Action() {
-            @Override
-            public void run() throws Exception {
-                mView.doSkip();
-            }
-        });
+        Disposable subscribe = RxHelper.countdown(2)
+                .subscribe(
+                        integer -> mView.setCountDown(integer),
+                        throwable -> Logger.e(throwable.getMessage()),
+                        () -> mView.doSkip());
         mCompositeSubscription.add(subscribe);
     }
 

@@ -51,6 +51,11 @@ android {
         }
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     lintOptions {   //执行lint检查，有任何的错误或者警告提示，都会终止构建，我们可以将其关掉。
         abortOnError false
     }
@@ -143,6 +148,8 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$rootProject.ext.retrofit"
     implementation "com.squareup.retrofit2:converter-gson:$rootProject.ext.converter"
     implementation "com.squareup.retrofit2:adapter-rxjava:$rootProject.ext.converter"
+
+    implementation 'org.aspectj:aspectjtools:1.9.2'
 
     implementation project(':annotations')
     annotationProcessor project(':apt')

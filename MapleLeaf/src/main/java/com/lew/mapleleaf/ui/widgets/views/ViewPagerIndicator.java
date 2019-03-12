@@ -34,7 +34,6 @@ public class ViewPagerIndicator extends LinearLayout {
 
     private List<String> mData;
     private boolean isSetData = false;
-    private Context context;
     private int currentPosition;
     private boolean isAutoSelect = false;//判断是否进行切换
     private float bouncedOffset;
@@ -50,11 +49,10 @@ public class ViewPagerIndicator extends LinearLayout {
 
     public ViewPagerIndicator(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        this.context = context;
-        init();
+        init(context);
     }
 
-    private void init() {
+    private void init(Context context) {
         this.setBackgroundResource(R.drawable.indicator_background);
         paint = new Paint();
         paint.setStyle(Paint.Style.FILL);
@@ -67,7 +65,7 @@ public class ViewPagerIndicator extends LinearLayout {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         width = getMeasuredWidth();
         height = getMeasuredHeight();
-        mWidth = width / visibleItemCount;
+        mWidth = width * 1.0F / visibleItemCount;
         mHeight = height;
     }
 
@@ -79,29 +77,33 @@ public class ViewPagerIndicator extends LinearLayout {
             this.removeAllViews();
             //添加TextView
             for (int i = 0; i < mData.size(); i++) {
-                TextView tv = new TextView(context);
-                tv.setPadding(mPadding, mPadding, mPadding, mPadding);
-                tv.setText(mData.get(i));
-                LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-                lp.width = width / visibleItemCount;
-                lp.height = height;
-                tv.setGravity(Gravity.CENTER);
-                tv.setTextColor(ContextCompat.getColor(context, R.color.red));
-                tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
-                tv.setLayoutParams(lp);
-                final int finalI = i;
-                tv.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (mViewPager != null) {
-                            mViewPager.setCurrentItem(finalI);
-                        }
-                    }
-                });
-                this.addView(tv);
+                this.addView(getTextView(i));
             }
             setTitleColor();
         }
+    }
+
+    private TextView getTextView(int i) {
+        TextView tv = new TextView(getContext());
+        tv.setPadding(mPadding, mPadding, mPadding, mPadding);
+        tv.setText(mData.get(i));
+        LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+        lp.width = width / visibleItemCount;
+        lp.height = height;
+        tv.setGravity(Gravity.CENTER);
+        tv.setTextColor(ContextCompat.getColor(getContext(), R.color.red900));
+        tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+        tv.setLayoutParams(lp);
+        final int finalI = i;
+        tv.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mViewPager != null) {
+                    mViewPager.setCurrentItem(finalI);
+                }
+            }
+        });
+        return tv;
     }
 
     @Override
@@ -245,9 +247,9 @@ public class ViewPagerIndicator extends LinearLayout {
         }
         for (int i = 0; i < getChildCount(); i++) {
             if (i == currentPosition) {
-                ((TextView) getChildAt(currentPosition)).setTextColor(ContextCompat.getColor(context, R.color.red));
+                ((TextView) getChildAt(currentPosition)).setTextColor(ContextCompat.getColor(getContext(), R.color.red900));
             } else {
-                ((TextView) getChildAt(i)).setTextColor(ContextCompat.getColor(context, R.color.white));
+                ((TextView) getChildAt(i)).setTextColor(ContextCompat.getColor(getContext(), R.color.white));
             }
         }
     }

@@ -27,28 +27,23 @@ public abstract class DataBindingActivity<B extends ViewDataBinding> extends App
         View rootView = getLayoutInflater().inflate(getLayoutId(), null, false);
         mViewBinding = DataBindingUtil.bind(rootView);
         setContentViewLocal(getLayoutId(), rootView);
-        initPresenter();
+        initView();
         initToolbar();
-        initData();
+        initPresenter();
     }
 
     private void setContentViewLocal(int layoutId, View rootView) {
+        rootView.setBackgroundColor(ContextCompat.getColor(this, R.color.alpha_white));
         boolean isNotSwapBack = layoutId == R.layout.activity_main || layoutId == R.layout.activity_start_up;
         setContentView(isNotSwapBack ? rootView : getContainer(rootView));
     }
 
     private View getContainer(View rootView) {
-        rootView.setBackgroundColor(ContextCompat.getColor(this, R.color.alpha_white));
         View container = getLayoutInflater().inflate(R.layout.activity_base, null, false);
         SwipeBackLayout swipeBackLayout = container.findViewById(R.id.swipe_back_layout);
         final View shadow = container.findViewById(R.id.iv_shadow);
         swipeBackLayout.addView(rootView);
-        swipeBackLayout.setOnScroll(new SwipeBackLayout.OnScrollListener() {
-            @Override
-            public void complete(float i) {
-                shadow.setAlpha(1 - i);
-            }
-        });
+        swipeBackLayout.setOnScroll(i -> shadow.setAlpha(1 - i));
         return container;
     }
 
@@ -65,7 +60,7 @@ public abstract class DataBindingActivity<B extends ViewDataBinding> extends App
 
     protected abstract void initPresenter();
 
-    protected abstract void initData();
+    protected abstract void initView();
 
     protected abstract int getLayoutId();
 

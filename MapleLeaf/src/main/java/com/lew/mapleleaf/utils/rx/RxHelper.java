@@ -2,9 +2,9 @@ package com.lew.mapleleaf.utils.rx;
 
 import java.util.concurrent.TimeUnit;
 
+import io.reactivex.FlowableTransformer;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -15,6 +15,13 @@ public class RxHelper {
 
     private RxHelper() {
         throw new AssertionError();
+    }
+
+    private static final FlowableTransformer<?, ?> mTransformer = (FlowableTransformer<Object, Object>) upstream -> upstream.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+
+    @SuppressWarnings("unchecked")
+    public static <T> FlowableTransformer<T, T> io_main() {
+        return (FlowableTransformer<T, T>) mTransformer;
     }
 
     /**
@@ -28,12 +35,7 @@ public class RxHelper {
         }
         final int countTime = time;
         return Observable.interval(0, 1, TimeUnit.SECONDS)
-                .map(new Function<Long, Integer>() {
-                    @Override
-                    public Integer apply(Long aLong) throws Exception {
-                        return countTime - aLong.intValue();
-                    }
-                })
+                .map(aLong -> countTime - aLong.intValue())
                 .take(countTime + 1)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());

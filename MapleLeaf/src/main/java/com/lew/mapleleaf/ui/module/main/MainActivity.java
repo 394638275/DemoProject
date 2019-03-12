@@ -6,10 +6,14 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.widget.DrawerLayout;
+import android.util.SparseArray;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 
 import com.lew.mapleleaf.R;
 import com.lew.mapleleaf.databinding.ActivityMainBinding;
@@ -22,7 +26,6 @@ import com.lew.mapleleaf.utils.logger.Logger;
 import java.lang.ref.WeakReference;
 
 public class MainActivity extends BaseActivity<MainPresenter, ActivityMainBinding> implements MainActivityContract.View, NavigationView.OnNavigationItemSelectedListener {
-
     private Handler mHandler;
     private static int mSelectedItem = -1;
 
@@ -31,38 +34,33 @@ public class MainActivity extends BaseActivity<MainPresenter, ActivityMainBindin
         return R.layout.activity_main;
     }
 
-//    @Override
-//    protected void initViews() {
-//        initDrawerLayout(mDrawerLayout, mNavigationView);
-//        addFragment(R.id.fl_container, new MainFragment());
-//    }
-
     @Override
-    protected void initData() {
-        mHandler = new MainHandler(this);
+    protected void initView() {
+        initDrawerLayout();
+        initMainPage();
     }
 
-//    @Override
-//    protected void updateViews(boolean isRefresh) {
-//
-//    }
+    private void initMainPage() {
+        MainPager pager = new MainPager(getSupportFragmentManager());
+        mViewBinding.viewPager.setAdapter(pager);
+        mViewBinding.tabLayout.setupWithViewPager(mViewBinding.viewPager);
+    }
 
-    private void initDrawerLayout(DrawerLayout drawerLayout, NavigationView navView) {
+    private void initDrawerLayout() {
+        mHandler = new MainHandler(this);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            WindowManager.LayoutParams localLayoutParams = getWindow().getAttributes();
-            localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS | localLayoutParams.flags);
             //将侧边栏顶部延伸至status bar
-            drawerLayout.setFitsSystemWindows(true);
+            mViewBinding.drawerLayout.setFitsSystemWindows(true);
             //将主页面顶部延伸至status bar
-            drawerLayout.setClipToPadding(false);
+            mViewBinding.drawerLayout.setClipToPadding(false);
         }
-        drawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
+        mViewBinding.drawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
             @Override
             public void onDrawerClosed(View drawerView) {
                 mHandler.sendEmptyMessage(mSelectedItem);
             }
         });
-        navView.setNavigationItemSelectedListener(this);
+        mViewBinding.navView.setNavigationItemSelectedListener(this);
     }
 
     @Override
@@ -71,7 +69,7 @@ public class MainActivity extends BaseActivity<MainPresenter, ActivityMainBindin
         switch (item.getItemId()) {
             case R.id.nav_news:
                 Logger.e(TAG, "nav_news");
-//                mDrawerLayout.closeDrawer(Gravity.START);
+                mViewBinding.drawerLayout.closeDrawer(Gravity.START);
                 return true;
 
             case R.id.nav_photos:
@@ -111,6 +109,35 @@ public class MainActivity extends BaseActivity<MainPresenter, ActivityMainBindin
                     break;
             }
             mSelectedItem = -1;
+        }
+    }
+
+    private class MainPager extends FragmentStatePagerAdapter {
+
+        private SparseArray<MainDetailFragment> fragments = new SparseArray<>();
+        private String[] title;
+
+        private MainPager(FragmentManager fm) {
+            super(fm);
+            title = getResources().getStringArray(R.array.main_page_title);
+            fragments.put(0, MainDetailFragment.newInstance(1));
+            fragments.put(1, MainDetailFragment.newInstance(2));
+            fragments.put(2, MainDetailFragment.newInstance(3));
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return fragments.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return fragments.size();
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return title[position];
         }
     }
 

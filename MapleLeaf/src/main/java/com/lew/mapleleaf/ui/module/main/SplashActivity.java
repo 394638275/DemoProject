@@ -18,7 +18,7 @@ public class SplashActivity extends BaseActivity<SplashPresenter, ActivityStartU
     }
 
     @Override
-    protected void initData() {
+    protected void initView() {
 
     }
 
