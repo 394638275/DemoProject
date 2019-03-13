@@ -105,7 +105,6 @@ public class SoundUtils {
 
     public void startRecord(String name) {
         if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-//			ToastUtils.show(ZJHApplication.getInstance(), R.string.no_storage_device);
             return;
         }
         if (recorder == null) {

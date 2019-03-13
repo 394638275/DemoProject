@@ -32,6 +32,7 @@
             android:configChanges="orientation|keyboardHidden" />
 
         <activity android:name=".ui.module.dagger.DaggerActivity" />
+        <activity android:name=".ui.module.aidl.AIDLActivity" />
 
         <service android:name=".ui.module.service.LocalService" />
 

@@ -1,1 +1,1 @@
-include ':MapleLeaf', ':apt', ':annotations', ':demo_plugins'
+include ':MapleLeaf', ':apt', ':annotations', ':demo_plugins', ':aidl_library', ':aidl_service'

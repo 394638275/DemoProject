@@ -72,11 +72,11 @@ public class ToastUtils {
     private static class MapleLeafToast extends Toast {
         private TextView mTipTv;
 
-        public MapleLeafToast(Context context) {
+        private MapleLeafToast(Context context) {
             super(context);
-            View view = LayoutInflater.from(context).inflate(R.layout.view_toast, null);
+            View view = LayoutInflater.from(context).inflate(R.layout.view_toast, null, false);
             mTipTv = (TextView) view.findViewById(R.id.tv_toast);
-            setGravity(Gravity.CENTER, 0, 0);
+//            setGravity(Gravity.CENTER, 0, 0);
             setView(view);
         }
 

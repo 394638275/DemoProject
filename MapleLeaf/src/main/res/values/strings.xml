@@ -23,5 +23,7 @@
 
     <string name="request_permission_tips">为了正常体验应用的功能，请您点击确认申请权限。</string>
     <string name="permission_denied_tips">当前应用缺少必要权限，该功能暂时无法使用。如若需要，请单击【确认】按钮前往设置中心进行权限授权。</string>
+    <string name="navigation_drawer_open">navigation_drawer_open</string>
+    <string name="navigation_drawer_close">navigation_drawer_close</string>
 
 </resources>

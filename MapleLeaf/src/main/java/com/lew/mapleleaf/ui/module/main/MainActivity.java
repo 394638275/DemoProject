@@ -1,7 +1,6 @@
 package com.lew.mapleleaf.ui.module.main;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
@@ -9,15 +8,16 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.widget.DrawerLayout;
+import android.support.v4.view.GravityCompat;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.util.SparseArray;
 import android.view.Gravity;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.lew.mapleleaf.R;
 import com.lew.mapleleaf.databinding.ActivityMainBinding;
 import com.lew.mapleleaf.ui.BaseActivity;
+import com.lew.mapleleaf.ui.module.aidl.AIDLActivity;
 import com.lew.mapleleaf.ui.module.dagger.DaggerActivity;
 import com.lew.mapleleaf.ui.module.home.MainActivityContract;
 import com.lew.mapleleaf.ui.module.home.MainPresenter;
@@ -35,6 +35,11 @@ public class MainActivity extends BaseActivity<MainPresenter, ActivityMainBindin
     }
 
     @Override
+    protected void initToolbar() {
+        super.initToolbar();
+    }
+
+    @Override
     protected void initView() {
         initDrawerLayout();
         initMainPage();
@@ -48,19 +53,28 @@ public class MainActivity extends BaseActivity<MainPresenter, ActivityMainBindin
 
     private void initDrawerLayout() {
         mHandler = new MainHandler(this);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            //将侧边栏顶部延伸至status bar
-            mViewBinding.drawerLayout.setFitsSystemWindows(true);
-            //将主页面顶部延伸至status bar
-            mViewBinding.drawerLayout.setClipToPadding(false);
-        }
-        mViewBinding.drawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
-            @Override
-            public void onDrawerClosed(View drawerView) {
-                mHandler.sendEmptyMessage(mSelectedItem);
-            }
-        });
+//        mViewBinding.drawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
+//            @Override
+//            public void onDrawerClosed(View drawerView) {
+//                mHandler.sendEmptyMessage(mSelectedItem);
+//            }
+//        });
+        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, mViewBinding.drawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerToggle.syncState();
+        mViewBinding.drawerLayout.addDrawerListener(drawerToggle);
         mViewBinding.navView.setNavigationItemSelectedListener(this);
+        drawerToggle.setDrawerIndicatorEnabled(false);
+        drawerToggle.setHomeAsUpIndicator(R.mipmap.ic_launcher);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                mViewBinding.drawerLayout.openDrawer(GravityCompat.START);
+                break;
+        }
+        return true;
     }
 
     @Override
@@ -68,24 +82,25 @@ public class MainActivity extends BaseActivity<MainPresenter, ActivityMainBindin
         mSelectedItem = item.getItemId();
         switch (item.getItemId()) {
             case R.id.nav_news:
-                Logger.e(TAG, "nav_news");
+                Logger.d(TAG, "nav_news");
                 mViewBinding.drawerLayout.closeDrawer(Gravity.START);
                 return true;
 
             case R.id.nav_photos:
-                Logger.e(TAG, "nav_photos");
+                Logger.d(TAG, "nav_photos");
+                startActivity(new Intent(this, AIDLActivity.class));
                 return true;
 
             case R.id.nav_videos:
-                Logger.e(TAG, "nav_videos");
+                Logger.d(TAG, "nav_videos");
                 return true;
 
             case R.id.nav_setting:
-                Logger.e(TAG, "nav_setting");
+                Logger.d(TAG, "nav_setting");
                 return true;
 
             default:
-                Logger.e(TAG, "default");
+                Logger.d(TAG, "default");
                 return super.onOptionsItemSelected(item);
         }
     }

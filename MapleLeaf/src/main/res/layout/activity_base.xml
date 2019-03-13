@@ -7,10 +7,10 @@
         android:id="@+id/iv_shadow"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:contentDescription="@string/shadow_image"
-        android:background="@color/transparent_50_black" />
+        android:background="@color/transparent_50_black"
+        android:contentDescription="@string/shadow_image" />
 
-    <com.view.widget.SwipeBackLayout
+    <com.lew.mapleleaf.ui.widgets.views.SwipeBackLayout
         android:id="@+id/swipe_back_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
