@@ -2,6 +2,7 @@ package com.lew.mapleleaf.base;
 
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -35,7 +36,7 @@ public abstract class DataBindingActivity<B extends ViewDataBinding> extends App
     }
 
     private void setContentViewLocal(int layoutId, View rootView) {
-        rootView.setBackgroundColor(ContextCompat.getColor(this, R.color.alpha_white));
+//        rootView.setBackgroundColor(ContextCompat.getColor(this, R.color.alpha_white));
         boolean isNotSwapBack = layoutId == R.layout.activity_main || layoutId == R.layout.activity_start_up;
         setContentView(isNotSwapBack ? rootView : getContainer(rootView));
     }

@@ -1,0 +1,24 @@
+apply plugin: 'java-library'
+apply plugin: 'open.gy.androidtools.componentplugin'
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+componentConfigurations {
+
+    // 配置sdk工程
+    sdkProject project(':MapleLeaf') //必要配置
+    jarDir 'src/main/jarLibs'
+    aarDir 'src/main/aarLibs'
+
+    // 配置输出
+    baseName 'component'
+    appendix 'annotations'
+    version '1.0.0'
+    output 'jar' //必要配置
+    vendor 'demo'
+}

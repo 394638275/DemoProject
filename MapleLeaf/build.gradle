@@ -152,7 +152,7 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$rootProject.ext.converter"
     implementation "com.squareup.retrofit2:adapter-rxjava:$rootProject.ext.converter"
     implementation 'org.aspectj:aspectjtools:1.9.2'
-    implementation project(':annotations')
-    annotationProcessor project(':apt')
+    implementation project(':demo_annotations')
+    annotationProcessor project(':demo_apt')
     implementation project(':aidl_library')
 }

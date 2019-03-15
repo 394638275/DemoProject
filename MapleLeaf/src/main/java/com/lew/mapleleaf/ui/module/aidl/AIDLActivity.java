@@ -22,7 +22,7 @@ import java.util.Random;
 /**
  * author: LQ
  * date: 2019/3/13 15:25
- * description:
+ * description: aidl demo
  */
 public class AIDLActivity extends BaseActivity<AIDLPresenter, ActivityAidlBinding> implements AIDLActivityContract.View, View.OnClickListener {
     private boolean mIsRegistered = false;
@@ -164,10 +164,9 @@ public class AIDLActivity extends BaseActivity<AIDLPresenter, ActivityAidlBindin
         if (isServiceReady()) {
             try {
                 int result = mService.someOperate(111, 222);
-                com.lew.mapleleaf.utils.common.ToastUtils.show("Remote call return: " + result);
+                ToastUtils.show("Remote call return: " + result);
             } catch (RemoteException e) {
-                e.printStackTrace();
-                com.lew.mapleleaf.utils.common.ToastUtils.show("Remote call error!");
+                ToastUtils.show("Remote call error!");
             }
         }
     }
@@ -176,7 +175,7 @@ public class AIDLActivity extends BaseActivity<AIDLPresenter, ActivityAidlBindin
         if (mService != null) {
             return true;
         } else {
-            com.lew.mapleleaf.utils.common.ToastUtils.show("Service is not available yet!");
+            ToastUtils.show("Service is not available yet!");
             return false;
         }
     }

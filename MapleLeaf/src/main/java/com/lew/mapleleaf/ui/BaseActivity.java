@@ -9,6 +9,7 @@ import com.lew.mapleleaf.base.BaseView;
 import com.lew.mapleleaf.base.DataBindingActivity;
 import com.lew.mapleleaf.base.BasePresenter;
 import com.lew.mapleleaf.utils.InstanceUtil;
+import com.lew.mapleleaf.utils.logger.Logger;
 
 import java.lang.reflect.ParameterizedType;
 
@@ -32,7 +33,7 @@ public abstract class BaseActivity<T extends BasePresenter, B extends ViewDataBi
                 mPresenter.setView(this);
             }
         } else {
-            Log.e(TAG, "initPresenter error");
+            Logger.e(TAG, "initPresenter error");
         }
     }
 

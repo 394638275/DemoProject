@@ -1,14 +1,11 @@
 package com.lew.mapleleaf.ui.module.main;
 
 import android.content.Intent;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.util.SparseArray;
 import android.view.Gravity;
@@ -23,11 +20,9 @@ import com.lew.mapleleaf.ui.module.home.MainActivityContract;
 import com.lew.mapleleaf.ui.module.home.MainPresenter;
 import com.lew.mapleleaf.utils.logger.Logger;
 
-import java.lang.ref.WeakReference;
-
 public class MainActivity extends BaseActivity<MainPresenter, ActivityMainBinding> implements MainActivityContract.View, NavigationView.OnNavigationItemSelectedListener {
-    private Handler mHandler;
-    private static int mSelectedItem = -1;
+//    private Handler mHandler;
+//    private static int mSelectedItem = -1;
 
     @Override
     protected int getLayoutId() {
@@ -52,7 +47,7 @@ public class MainActivity extends BaseActivity<MainPresenter, ActivityMainBindin
     }
 
     private void initDrawerLayout() {
-        mHandler = new MainHandler(this);
+//        mHandler = new MainHandler(this);
 //        mViewBinding.drawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
 //            @Override
 //            public void onDrawerClosed(View drawerView) {
@@ -64,14 +59,14 @@ public class MainActivity extends BaseActivity<MainPresenter, ActivityMainBindin
         mViewBinding.drawerLayout.addDrawerListener(drawerToggle);
         mViewBinding.navView.setNavigationItemSelectedListener(this);
         drawerToggle.setDrawerIndicatorEnabled(false);
-        drawerToggle.setHomeAsUpIndicator(R.mipmap.ic_launcher);
+        drawerToggle.setDrawerSlideAnimationEnabled(true);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                mViewBinding.drawerLayout.openDrawer(GravityCompat.START);
+                mViewBinding.drawerLayout.openDrawer(Gravity.START);
                 break;
         }
         return true;
@@ -79,16 +74,18 @@ public class MainActivity extends BaseActivity<MainPresenter, ActivityMainBindin
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        mSelectedItem = item.getItemId();
+//        mSelectedItem = item.getItemId();
         switch (item.getItemId()) {
             case R.id.nav_news:
                 Logger.d(TAG, "nav_news");
                 mViewBinding.drawerLayout.closeDrawer(Gravity.START);
+                startDaggerActivity();
                 return true;
 
             case R.id.nav_photos:
                 Logger.d(TAG, "nav_photos");
-                startActivity(new Intent(this, AIDLActivity.class));
+                mViewBinding.drawerLayout.closeDrawer(Gravity.START);
+                startAidlActivity();
                 return true;
 
             case R.id.nav_videos:
@@ -105,27 +102,34 @@ public class MainActivity extends BaseActivity<MainPresenter, ActivityMainBindin
         }
     }
 
-    private static class MainHandler extends Handler {
-        private WeakReference<MainActivity> reference;
-
-        private MainHandler(MainActivity context) {
-            reference = new WeakReference<>(context);
-        }
-
-        @Override
-        public void handleMessage(Message msg) {
-            MainActivity activity = reference.get();
-            if (activity == null) {
-                return;
-            }
-            switch (msg.what) {
-                case R.id.nav_news:
-                    activity.startDaggerActivity();
-                    break;
-            }
-            mSelectedItem = -1;
-        }
+    private void startAidlActivity() {
+        startActivity(new Intent(this, AIDLActivity.class));
     }
+
+//    private static class MainHandler extends Handler {
+//        private WeakReference<MainActivity> reference;
+//
+//        private MainHandler(MainActivity context) {
+//            reference = new WeakReference<>(context);
+//        }
+//
+//        @Override
+//        public void handleMessage(Message msg) {
+//            MainActivity activity = reference.get();
+//            if (activity == null) {
+//                return;
+//            }
+//            switch (msg.what) {
+//                case R.id.nav_news:
+//                    activity.startDaggerActivity();
+//                    break;
+//                case R.id.nav_photos:
+//                    activity.startAidlActivity();
+//                    break;
+//            }
+//            mSelectedItem = -1;
+//        }
+//    }
 
     private class MainPager extends FragmentStatePagerAdapter {
 

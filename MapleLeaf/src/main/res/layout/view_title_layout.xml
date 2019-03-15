@@ -2,20 +2,9 @@
 <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@id/title_toolbar"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/title_height"
-    android:background="@color/colorPrimaryDark"
+    style="@style/base_toolbar"
     app:layout_scrollFlags="scroll|enterAlways|snap"
-    app:popupTheme="@style/AppTheme.PopupOverlay">
-
-    <TextView
-        android:id="@+id/title_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:lines="1"
-        android:maxWidth="240dp"
-        android:textColor="@color/white"
-        android:textSize="@dimen/text_size_20" />
+    app:popupTheme="@style/popup_theme"
+    app:theme="@style/toolbar_theme">
 
 </android.support.v7.widget.Toolbar>
