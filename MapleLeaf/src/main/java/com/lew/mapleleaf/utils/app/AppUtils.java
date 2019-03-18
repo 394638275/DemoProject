@@ -1,6 +1,5 @@
 package com.lew.mapleleaf.utils.app;
 
-import android.app.*;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
@@ -113,8 +112,7 @@ public class AppUtils {
             return null;
         }
         try {
-            ApplicationInfo ai = context.getPackageManager().getApplicationInfo(context.getPackageName(),
-                    PackageManager.GET_META_DATA);
+            ApplicationInfo ai = context.getPackageManager().getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA);
             if (null != ai) {
                 metaData = ai.metaData;
             }

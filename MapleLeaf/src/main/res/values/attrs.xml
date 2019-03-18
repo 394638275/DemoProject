@@ -1,4 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <declare-styleable name="AutoScrollViewPager">
+        <!-- 是否开启自动滚动 -->
+        <attr name="autoScrollEnable" format="boolean"/>
+        <!-- 滚动时间间隔 单位：s -->
+        <attr name="timeInterval" format="integer"/>
+        <!-- 设置单页指示器是否显示(默认不显示) -->
+        <attr name="indicatorVisibleInSingle" format="boolean"/>
+        <!-- 指示器 Bottom Margin -->
+        <attr name="indicatorBottomMargin" format="dimension"/>
+        <!-- 指示器间隔 -->
+        <attr name="indicatorSpace" format="dimension"/>
+        <!-- 是否显示Indictor -->
+        <attr name="indicatorVisible" format="boolean"/>
+        <!-- 滑动因子 -->
+        <attr name="scrollFactor" format="float"/>
+
+        <!-- QuickAutoScrollViewPager -->
+        <!-- 指示器半径 -->
+        <attr name="indicatorRadius" format="dimension"/>
+        <!-- 选中指示器颜色 -->
+        <attr name="selectedIndicatorColor" format="color"/>
+        <!-- 反选指示器颜色 -->
+        <attr name="unselectedIndicatorColor" format="color"/>
+        <!-- 开启循环滚动 -->
+        <attr name="cycleScrollingEnable" format="boolean"/>
+    </declare-styleable>
 
 </resources>

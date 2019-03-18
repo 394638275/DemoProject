@@ -9,4 +9,7 @@
     <item name="error_text" type="id"/>
     <item name="retry_button" type="id"/>
 
+    <item name="scroll_view" type="id" />
+    <item name="page_control" type="id" />
+    <item name="container_view" type="id" />
 </resources>

@@ -34,6 +34,7 @@
         <activity android:name=".ui.module.dagger.DaggerActivity" />
 
         <activity android:name=".ui.module.aidl.AIDLActivity" />
+        <activity android:name=".ui.module.autoscrollpager.AutoScrollPagerActivity" />
 
         <service android:name=".ui.module.service.LocalService" />
 

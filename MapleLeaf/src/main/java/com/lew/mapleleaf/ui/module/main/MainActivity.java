@@ -15,6 +15,7 @@ import com.lew.mapleleaf.R;
 import com.lew.mapleleaf.databinding.ActivityMainBinding;
 import com.lew.mapleleaf.ui.BaseActivity;
 import com.lew.mapleleaf.ui.module.aidl.AIDLActivity;
+import com.lew.mapleleaf.ui.module.autoscrollpager.AutoScrollPagerActivity;
 import com.lew.mapleleaf.ui.module.dagger.DaggerActivity;
 import com.lew.mapleleaf.ui.module.home.MainActivityContract;
 import com.lew.mapleleaf.ui.module.home.MainPresenter;
@@ -90,6 +91,8 @@ public class MainActivity extends BaseActivity<MainPresenter, ActivityMainBindin
 
             case R.id.nav_videos:
                 Logger.d(TAG, "nav_videos");
+                mViewBinding.drawerLayout.closeDrawer(Gravity.START);
+                startAutoScrollPagerActivity();
                 return true;
 
             case R.id.nav_setting:
@@ -100,6 +103,10 @@ public class MainActivity extends BaseActivity<MainPresenter, ActivityMainBindin
                 Logger.d(TAG, "default");
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void startAutoScrollPagerActivity() {
+        startActivity(new Intent(this, AutoScrollPagerActivity.class));
     }
 
     private void startAidlActivity() {

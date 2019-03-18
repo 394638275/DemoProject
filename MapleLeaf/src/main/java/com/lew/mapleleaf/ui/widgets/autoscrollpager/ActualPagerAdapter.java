@@ -1,0 +1,103 @@
+package com.lew.mapleleaf.ui.widgets.autoscrollpager;
+
+import android.support.annotation.NonNull;
+import android.support.v4.view.PagerAdapter;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class ActualPagerAdapter extends PagerAdapter implements OnChangeListener {
+    private AutoScrollViewPager mViewPager;
+    private List<View> mAssistViews;
+    private List<View> mViews;
+    private IBindView mBindView;
+
+    @Override
+    public void onChange() {
+        notifyDataSetChanged();
+    }
+
+    public void setBindView(IBindView bindView) {
+        mBindView = bindView;
+    }
+
+    @NonNull
+    @Override
+    public Object instantiateItem(@NonNull ViewGroup container, final int position) {
+        prepare(container);
+
+        final View itemView;
+        if (null != mAssistViews) {
+            itemView = mAssistViews.get(position % mAssistViews.size());
+        } else {
+            itemView = mViews.get(position % mViews.size());
+        }
+
+        if (null != itemView.getParent()) {
+            container.removeView(itemView);
+        }
+
+        mBindView.onBindView(itemView, position % mViews.size());
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (null != mViewPager.onItemClickListener && null != mViews) {
+                    mViewPager.onItemClickListener.onItemClick(position % mViews.size(), itemView);
+                }
+            }
+        });
+        container.addView(itemView);
+        return itemView;
+    }
+
+    private void prepare(ViewGroup container) {
+        int count = mBindView.getCount();
+        if (null == mViews) {
+            mViews = new ArrayList<>();
+            for (int i = 0; i < count; i++) {
+                mViews.add(LayoutInflater.from(container.getContext()).inflate(mBindView.onLayoutId(), container, false));
+            }
+        }
+        if (count == 2 && null == mAssistViews) {
+            mAssistViews = new ArrayList<>(mViews);
+            mAssistViews.add(LayoutInflater.from(container.getContext()).inflate(mBindView.onLayoutId(), container, false));
+        }
+    }
+
+    @Override
+    public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
+//        super.destroyItem(container, position, object);
+    }
+
+    @Override
+    public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
+        return view == object;
+    }
+
+    @Override
+    public int getCount() {
+        return mBindView.getCount() > 1 && mViewPager.cycleScrollingEnabled() ?
+                Integer.MAX_VALUE : mBindView.getCount();
+    }
+
+    public void setViewPager(AutoScrollViewPager viewPager) {
+        mViewPager = viewPager;
+    }
+
+    @Override
+    public void notifyDataSetChanged() {
+        mViews = null;
+        mViewPager.adapterSync();
+
+        super.notifyDataSetChanged();
+
+        if (null != mViewPager.mPageControl) {
+            mViewPager.mPageControl.setTotalPage(mBindView.getCount());
+        }
+        mViewPager.moveToStartPosition(false);
+        mViewPager.restore();
+    }
+}

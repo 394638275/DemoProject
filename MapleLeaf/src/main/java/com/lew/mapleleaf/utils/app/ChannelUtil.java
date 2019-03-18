@@ -29,8 +29,6 @@ public class ChannelUtil {
     }
 
     /**
-     *
-     *
      * @param context  上下文
      * @param defaultChannel  数值
      * @return 返回市场。  如果获取失败返回defaultChannel
@@ -95,7 +93,7 @@ public class ChannelUtil {
         }
         String[] split = ret.split("\\*");
         String channel = "";
-        if (split != null && split.length >= 2) {
+        if (split.length >= 2) {
             channel = ret.substring(split[0].length() + 1);
         }
         return channel;
@@ -103,9 +101,6 @@ public class ChannelUtil {
 
     /**
      * 本地保存channel & 对应版本号
-     *
-     * @param context
-     * @param channel
      */
     private static void saveChannelBySharedPreferences(Context context, String channel) {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
@@ -118,7 +113,6 @@ public class ChannelUtil {
     /**
      * 从sp中获取channel
      *
-     * @param context
      * @return 为空表示获取异常、sp中的值已经失效、sp中没有此值
      */
     private static String getChannelBySharedPreferences(Context context) {
@@ -142,9 +136,6 @@ public class ChannelUtil {
 
     /**
      * 从包信息中获取版本号
-     *
-     * @param context
-     * @return
      */
     private static int getVersionCode(Context context) {
         try {
