@@ -6,6 +6,8 @@ dependencies {
     implementation localGroovy()
     implementation 'com.android.tools.build:gradle:3.3.2'
     implementation 'org.javassist:javassist:3.24.1-GA'
+    implementation 'org.aspectj:aspectjtools:1.9.2'
+    implementation 'org.aspectj:aspectjrt:1.9.2'
 }
 
 repositories {
@@ -13,14 +15,12 @@ repositories {
 }
 
 uploadArchives {
-    repositories {
-        mavenDeployer {
-            //设置插件的GAV参数
-            pom.groupId = 'com.mapleleaf.plugins'
-            pom.artifactId = 'plugins'
-            pom.version = '1.0.0'
-            //文件发布到下面目录
-            repository(url: uri('../repo'))
-        }
+    repositories.mavenDeployer {
+        //设置插件的GAV参数
+        pom.groupId = 'com.mapleleaf.plugins'
+        pom.artifactId = 'plugins'
+        pom.version = '1.0.0'
+        //文件发布到下面目录
+        repository(url: uri('../repo'))
     }
 }

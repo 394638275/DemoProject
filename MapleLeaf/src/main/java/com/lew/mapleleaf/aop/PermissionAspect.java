@@ -5,10 +5,12 @@ import android.app.Activity;
 import com.app.annotations.aspect.RequestPermission;
 import com.lew.mapleleaf.ui.MapleLeafApplication;
 import com.lew.mapleleaf.utils.app.PermissionUtils;
+import com.lew.mapleleaf.utils.logger.Logger;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
 
 /**
  * author: LQ
@@ -17,10 +19,14 @@ import org.aspectj.lang.annotation.Aspect;
  */
 @Aspect
 public class PermissionAspect {
-    @Around("execution(@com.app.annotations.aspect.RequestPermission * *(..)) && @annotation(permission)")
+    @Pointcut("execution(@com.app.annotations.aspect.RequestPermission * *(..)) && @annotation(permission)")
+    public void methodAnnotationd(RequestPermission permission) {
+    }
+
+    @Around("methodAnnotationd(permission)")
     public void aroundJoinPoint(ProceedingJoinPoint joinPoint, RequestPermission permission) throws Throwable {
         Activity activity = MapleLeafApplication.getInstance().getCurrentActivity();
-        String[] permissions = permission.values();
+        String[] permissions = permission.value();
         boolean hasPermission = PermissionUtils.checkPermissions(activity, permissions);
         if (hasPermission) {
             joinPoint.proceed();

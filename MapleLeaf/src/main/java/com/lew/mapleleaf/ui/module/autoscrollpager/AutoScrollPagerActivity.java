@@ -18,6 +18,11 @@ import com.lew.mapleleaf.utils.logger.Logger;
 public class AutoScrollPagerActivity extends BaseActivity<AutoScrollPagerPresenter, ActivityAutoScrollPagerBinding> {
 
     @Override
+    protected int getLayoutId() {
+        return R.layout.activity_auto_scroll_pager;
+    }
+
+    @Override
     protected void initView() {
         mViewBinding.autoScrollPager.setPageControl(new CustomPageControl(this));
         final int[] images = {R.drawable.cat1, R.drawable.cat2};
@@ -61,10 +66,5 @@ public class AutoScrollPagerActivity extends BaseActivity<AutoScrollPagerPresent
         });
 
         mViewBinding.autoScrollPager.autoScroll();
-    }
-
-    @Override
-    protected int getLayoutId() {
-        return R.layout.activity_auto_scroll_pager;
     }
 }

@@ -1,5 +1,6 @@
 package com.lew.mapleleaf.ui.module.main;
 
+import android.Manifest;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -11,6 +12,8 @@ import android.util.SparseArray;
 import android.view.Gravity;
 import android.view.MenuItem;
 
+import com.app.annotations.aspect.RequestPermission;
+import com.app.annotations.aspect.TimeLog;
 import com.lew.mapleleaf.R;
 import com.lew.mapleleaf.databinding.ActivityMainBinding;
 import com.lew.mapleleaf.ui.BaseActivity;
@@ -73,6 +76,7 @@ public class MainActivity extends BaseActivity<MainPresenter, ActivityMainBindin
         return true;
     }
 
+    @TimeLog
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 //        mSelectedItem = item.getItemId();
@@ -105,6 +109,7 @@ public class MainActivity extends BaseActivity<MainPresenter, ActivityMainBindin
         }
     }
 
+    @RequestPermission(Manifest.permission.CAMERA)
     private void startAutoScrollPagerActivity() {
         startActivity(new Intent(this, AutoScrollPagerActivity.class));
     }

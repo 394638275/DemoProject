@@ -10,7 +10,7 @@
         <com.lew.mapleleaf.ui.widgets.autoscrollpager.AutoScrollViewPager
             android:id="@+id/auto_scroll_pager"
             android:layout_width="match_parent"
-            android:layout_height="400dp" />
+            android:layout_height="200dp" />
 
     </LinearLayout>
 

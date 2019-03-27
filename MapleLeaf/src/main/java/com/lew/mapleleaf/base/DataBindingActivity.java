@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import android.view.View;
 
 import com.lew.mapleleaf.R;
 import com.lew.mapleleaf.ui.widgets.views.SwipeBackLayout;
+import com.lew.mapleleaf.utils.app.PermissionUtils;
 
 /**
  * author: LQ
@@ -76,6 +78,13 @@ public abstract class DataBindingActivity<B extends ViewDataBinding> extends App
         }
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        PermissionUtils.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
 
     private int getMenuId() {
         return -1;

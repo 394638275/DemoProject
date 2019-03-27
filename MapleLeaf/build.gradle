@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-//apply plugin: 'com.mapleleaf.plugins'   //经常导致打包错误
+apply plugin: 'com.mapleleaf.plugins'   //经常导致打包错误
 
 static def releaseTime() {
     return new Date().format("yyyy_MM_dd", TimeZone.getTimeZone("UTC"))

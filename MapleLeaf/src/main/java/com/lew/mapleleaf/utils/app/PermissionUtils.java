@@ -3,7 +3,6 @@ package com.lew.mapleleaf.utils.app;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -104,12 +103,12 @@ public class PermissionUtils {
     }
 
     public static void showRequestPermissionDialog(Context context, String[] permissions, OnPermissionListener callback) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context)
+        new AlertDialog.Builder(context)
                 .setTitle(R.string.tips)
                 .setMessage(R.string.request_permission_tips)
                 .setNegativeButton(R.string.cancel, null)
-                .setPositiveButton(R.string.confirm, (dialog, which) -> requestPermissions(context, 1, permissions, callback));
-        builder.show();
+                .setPositiveButton(R.string.confirm, (dialog, which) -> requestPermissions(context, 1, permissions, callback))
+                .show();
     }
 
     /**
